@@ -43,61 +43,6 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- 核心模块-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-framework</artifactId>
-        </dependency>
-
-        <!-- 定时任务-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-quartz</artifactId>
-        </dependency>
-
-        <!-- 代码生成-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-generator</artifactId>
-        </dependency>
-
-        <!-- 渠道管理-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-channel</artifactId>
-        </dependency>
-
-        <!-- 活动管理-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-activity</artifactId>
-        </dependency>
-
-
-        <!-- 课程管理-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-course</artifactId>
-        </dependency>
-
-
-        <!-- 线索管理-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-clue</artifactId>
-        </dependency>
-
-        <!-- 商机管理-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-business</artifactId>
-        </dependency>
-        <!--合同管理-->
-        <dependency>
-            <groupId>org.javaboy</groupId>
-            <artifactId>tienchin-contract</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

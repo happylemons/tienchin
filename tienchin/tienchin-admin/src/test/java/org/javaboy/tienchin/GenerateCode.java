@@ -22,9 +22,9 @@ public class GenerateCode {
     @Test
     void generateContractCode() {
 
-        String path = "/Users/sang/workspace/tienchin-video/code/tienchin/tienchin-contract/src/main";
+        String path = "D:\\file\\tienchin";
 
-        FastAutoGenerator.create("jdbc:mysql:///tienchin-video?serverTimezone=Asia/Shanghai&useSSL=false", "root", "123")
+        FastAutoGenerator.create("jdbc:mysql:///tienchin?serverTimezone=Asia/Shanghai&useSSL=false", "tienchin", "123456")
                 .globalConfig(builder -> {
                     builder.author("javaboy") // 设置作者
                             .fileOverride() // 覆盖已生成文件
