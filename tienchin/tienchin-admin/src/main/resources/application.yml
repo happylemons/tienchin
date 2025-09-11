@@ -20,7 +20,7 @@ tienchin:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8080
+  port: 8081
   servlet:
     # 应用的访问路径
     context-path: /
@@ -38,7 +38,7 @@ server:
 # 日志配置
 logging:
   level:
-    org.javaboy: debug
+    org.emilia: debug
     org.springframework: warn
 
 # Spring配置
@@ -96,7 +96,7 @@ token:
 # MyBatis配置
 mybatis:
     # 搜索指定包别名
-    typeAliasesPackage: org.javaboy.**.domain
+    typeAliasesPackage: org.emilia.**.domain
     # 配置mapper的扫描，找到所有的mapper.xml映射文件
     mapperLocations: classpath*:mapper/**/*Mapper.xml
     # 加载全局的配置文件

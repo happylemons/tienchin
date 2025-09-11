@@ -1,0 +1,59 @@
+//package org.emilia.tienchin.web.controller.tienchin;
+//
+//import org.emilia.tienchin.activity.domain.vo.ActivityVO;
+//import org.emilia.tienchin.activity.service.IActivityService;
+//import org.emilia.tienchin.business.domain.vo.BusinessVO;
+//import org.emilia.tienchin.business.service.IBusinessService;
+//import org.emilia.tienchin.channel.domain.vo.ChannelVO;
+//import org.emilia.tienchin.channel.service.IChannelService;
+//import org.emilia.tienchin.clue.domain.vo.ClueVO;
+//import org.emilia.tienchin.clue.service.IClueService;
+//import org.emilia.tienchin.web.controller.pojo.AjaxResult;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//@RestController
+//@RequestMapping("/tienchin/analysis")
+//public class AnalysisController {
+//
+//    @Autowired
+//    IClueService clueService;
+//
+//    @Autowired
+//    IBusinessService businessService;
+//
+//    @Autowired
+//    IChannelService channelService;
+//
+//    @Autowired
+//    IActivityService activityService;
+//
+//    @GetMapping("/clue")
+//    @PreAuthorize("hasPermission('tienchin:analysis:clue')")
+//    public AjaxResult clueAnalysisData(ClueVO clueVO) {
+//        return null;
+//
+//    }
+//
+//    @GetMapping("/business")
+//    @PreAuthorize("hasPermission('tienchin:analysis:business')")
+//    public AjaxResult businessAnalysisData(BusinessVO businessVO) {
+//        return null;
+//    }
+//
+//    @GetMapping("/channel")
+//    @PreAuthorize("hasPermission('tienchin:analysis:channel')")
+//    public AjaxResult channelAnalysisData(ChannelVO channelVO) {
+//        return null;
+//
+//    }
+//    @GetMapping("/activity")
+//    @PreAuthorize("hasPermission('tienchin:analysis:activity')")
+//    public AjaxResult activityAnalysisData(ActivityVO activityVO) {
+//        return null;
+//
+//    }
+//}
