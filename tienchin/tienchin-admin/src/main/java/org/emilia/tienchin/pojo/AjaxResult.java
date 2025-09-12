@@ -1,7 +1,7 @@
 package org.emilia.tienchin.pojo;
 
 
-import org.emilia.tienchin.domain.constant.HttpStatus;
+import org.emilia.tienchin.pojo.constant.HttpStatus;
 
 import java.util.HashMap;
 

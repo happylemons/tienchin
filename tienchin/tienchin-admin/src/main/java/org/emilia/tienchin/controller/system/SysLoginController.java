@@ -1,10 +1,10 @@
 package org.emilia.tienchin.controller.system;
 
 
-import org.emilia.tienchin.domain.model.LoginBody;
+import org.emilia.tienchin.pojo.model.LoginBody;
 import org.emilia.tienchin.pojo.AjaxResult;
-import org.emilia.tienchin.service.ISysMenuService;
 import org.emilia.tienchin.service.SysLoginService;
+import org.emilia.tienchin.service.SysMenuService;
 import org.emilia.tienchin.service.SysPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SysLoginController {
-    @Autowired
-    private SysLoginService loginService;
+
+    @Autowired(required = false)
+    private SysLoginService sysLoginService;
 
     @Autowired
-    private ISysMenuService menuService;
+    private SysMenuService menuService;
 
     @Autowired
     private SysPermissionService permissionService;
@@ -37,7 +38,8 @@ public class SysLoginController {
      */
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginBody loginBody) {
-        return null;
+        ;
+        return sysLoginService.login(loginBody);
 
     }
 
@@ -48,7 +50,7 @@ public class SysLoginController {
      */
     @GetMapping("getInfo")
     public AjaxResult getInfo() {
-        return null;
+        return AjaxResult.success();
 
     }
 
@@ -59,7 +61,7 @@ public class SysLoginController {
      */
     @GetMapping("getRouters")
     public AjaxResult getRouters() {
-        return null;
+        return AjaxResult.success();
 
     }
 }

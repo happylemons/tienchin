@@ -3,5 +3,6 @@ package org.emilia.tienchin.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SysPermissionService {
+
+public interface SysMenuService {
 }

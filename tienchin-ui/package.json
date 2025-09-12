@@ -2,7 +2,7 @@
   "name": "tienchin",
   "version": "3.8.3",
   "description": "TienChin健身管理系统",
-  "author": "javaboy",
+  "author": "emilia",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
