@@ -1,7 +1,9 @@
 package org.emilia.tienchin.pojo.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import org.emilia.tienchin.web.controller.domain.entity.SysUser;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.emilia.tienchin.pojo.entity.SysUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +18,9 @@ import java.util.stream.Collectors;
  *
  * @author tienchin
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -98,8 +103,7 @@ public class LoginUser implements UserDetails {
         this.token = token;
     }
 
-    public LoginUser() {
-    }
+
 
     public LoginUser(SysUser user, Set<String> permissions) {
         this.user = user;
@@ -113,7 +117,7 @@ public class LoginUser implements UserDetails {
         this.permissions = permissions;
     }
 
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -127,7 +131,7 @@ public class LoginUser implements UserDetails {
     /**
      * 账户是否未过期,过期无法验证
      */
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -138,7 +142,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -149,7 +153,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -160,7 +164,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     @Override
     public boolean isEnabled() {
         return true;
