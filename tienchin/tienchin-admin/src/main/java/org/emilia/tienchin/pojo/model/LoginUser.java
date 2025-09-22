@@ -1,5 +1,6 @@
 package org.emilia.tienchin.pojo.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -117,7 +118,7 @@ public class LoginUser implements UserDetails {
         this.permissions = permissions;
     }
 
-//    @JSONField(serialize = false)
+    @JSONField(serialize = false)
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -131,7 +132,7 @@ public class LoginUser implements UserDetails {
     /**
      * 账户是否未过期,过期无法验证
      */
-//    @JSONField(serialize = false)
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -142,7 +143,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-//    @JSONField(serialize = false)
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -153,7 +154,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-//    @JSONField(serialize = false)
+    @JSONField(serialize = false)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -164,7 +165,7 @@ public class LoginUser implements UserDetails {
      *
      * @return
      */
-//    @JSONField(serialize = false)
+    @JSONField(serialize = false)
     @Override
     public boolean isEnabled() {
         return true;

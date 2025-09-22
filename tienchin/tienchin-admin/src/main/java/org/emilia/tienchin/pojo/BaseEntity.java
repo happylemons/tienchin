@@ -2,17 +2,14 @@ package org.emilia.tienchin.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.jdbc.support.incrementer.HsqlMaxValueIncrementer;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Entity基类
  *
- * @author tienchin
  */
 @Data
 public class BaseEntity implements Serializable {

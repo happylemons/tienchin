@@ -1,4 +1,6 @@
-package org.emilia.tienchin.pojo;
+package org.emilia.tienchin.pojo.business;
+
+import org.emilia.tienchin.pojo.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;

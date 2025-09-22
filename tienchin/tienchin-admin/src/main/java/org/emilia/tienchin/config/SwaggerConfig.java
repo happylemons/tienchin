@@ -7,7 +7,7 @@
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import org.emilia.tienchin.common.config.TienChinConfig;
+////import org.emilia.tienchin.common.config.TienChinConfig;
 //import io.swagger.annotations.ApiOperation;
 //import io.swagger.models.auth.In;
 //import springfox.documentation.builders.ApiInfoBuilder;
@@ -33,8 +33,8 @@
 //    /**
 //     * 系统基础配置
 //     */
-//    @Autowired
-//    private TienChinConfig tienchinConfig;
+////    @Autowired
+////    private TienChinConfig tienchinConfig;
 //
 //    /**
 //     * 是否开启swagger
@@ -57,7 +57,7 @@
 //                // 是否启用Swagger
 //                .enable(enabled)
 //                // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
-//                .apiInfo(apiInfo())
+////                .apiInfo(apiInfo())
 //                // 设置哪些接口暴露给Swagger展示
 //                .select()
 //                // 扫描所有有注解的api，用这种方式更灵活
@@ -110,17 +110,17 @@
 //    /**
 //     * 添加摘要信息
 //     */
-//    private ApiInfo apiInfo() {
-//        // 用ApiInfoBuilder进行定制
-//        return new ApiInfoBuilder()
-//                // 设置标题
-//                .title("标题：TienChin健身管理系统_接口文档")
-//                // 描述
-//                .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
-//                // 作者信息
-//                .contact(new Contact(tienchinConfig.getName(), null, null))
-//                // 版本
-//                .version("版本号:" + tienchinConfig.getVersion())
-//                .build();
-//    }
+////    private ApiInfo apiInfo() {
+////        // 用ApiInfoBuilder进行定制
+////        return new ApiInfoBuilder()
+////                // 设置标题
+////                .title("标题：TienChin健身管理系统_接口文档")
+////                // 描述
+////                .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
+////                // 作者信息
+////                .contact(new Contact(tienchinConfig.getName(), null, null))
+////                // 版本
+////                .version("版本号:" + tienchinConfig.getVersion())
+////                .build();
+////    }
 //}

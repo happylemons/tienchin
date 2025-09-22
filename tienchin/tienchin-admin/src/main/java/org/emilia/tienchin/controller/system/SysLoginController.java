@@ -1,16 +1,25 @@
 package org.emilia.tienchin.controller.system;
 
 
+import org.emilia.tienchin.pojo.entity.SysRole;
+import org.emilia.tienchin.pojo.entity.SysUser;
 import org.emilia.tienchin.pojo.model.LoginBody;
 import org.emilia.tienchin.pojo.AjaxResult;
+import org.emilia.tienchin.pojo.model.LoginUser;
 import org.emilia.tienchin.service.SysLoginService;
+
 import org.emilia.tienchin.service.SysMenuService;
 import org.emilia.tienchin.service.SysPermissionService;
+import org.emilia.tienchin.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -24,11 +33,14 @@ public class SysLoginController {
     @Autowired(required = false)
     private SysLoginService sysLoginService;
 
-    @Autowired
+    @Autowired(required = false)
     private SysMenuService menuService;
 
-    @Autowired
+    @Autowired(required = false)
     private SysPermissionService permissionService;
+
+    @Autowired(required = false)
+    private SysRoleService roleService;
 
     /**
      * 登录方法
@@ -37,10 +49,10 @@ public class SysLoginController {
      * @return 结果
      */
     @PostMapping("/login")
-    public AjaxResult login(@RequestBody LoginBody loginBody) {
-        ;
-        return sysLoginService.login(loginBody);
-
+    public AjaxResult login(@RequestBody LoginBody loginBody, HttpServletRequest request) {
+        String token = sysLoginService.login(loginBody.getUsername(), loginBody.getPassword(),
+                loginBody.getCode(), loginBody.getUuid(), request);
+        return AjaxResult.success().put("token", token);
     }
 
     /**
@@ -50,8 +62,15 @@ public class SysLoginController {
      */
     @GetMapping("getInfo")
     public AjaxResult getInfo() {
-        return AjaxResult.success();
-
+        LoginUser loginUser = sysLoginService.getInfo();
+        AjaxResult result = new AjaxResult();
+//        result.put("permissions", permissionService.hasPermission(user.getUserId()));
+        Set<String> permissions = new HashSet<>();
+        permissions.add("*:*:*");
+        result.put("permissions", permissions);
+        result.put("roles", roleService.roles(loginUser.getUserId()));
+        result.put("user", loginUser.getUser());
+        return result;
     }
 
     /**
@@ -61,7 +80,9 @@ public class SysLoginController {
      */
     @GetMapping("getRouters")
     public AjaxResult getRouters() {
-        return AjaxResult.success();
+        AjaxResult result = new AjaxResult();
+        result.put("routers", null);
+        return result;
 
     }
 }

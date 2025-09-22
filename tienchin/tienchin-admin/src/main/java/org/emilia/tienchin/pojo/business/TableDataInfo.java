@@ -1,4 +1,4 @@
-package org.emilia.tienchin.pojo;
+package org.emilia.tienchin.pojo.business;
 
 import java.io.Serializable;
 import java.util.List;

@@ -20,7 +20,7 @@ tienchin:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8080
+  port: 8081
   servlet:
     # 应用的访问路径
     context-path: /
@@ -68,7 +68,7 @@ spring:
     # 端口，默认为6379
     port: 6379
     # 数据库索引
-    database: 0
+    database: 1
     # 密码
     password: 123
     # 连接超时时间
@@ -83,7 +83,25 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
-
+# Spring Boot 2.x + Spring Security 5.x 配置
+  security:
+    # 1. 禁用默认的用户认证（避免自动生成随机密码，且不拦截未认证请求）
+    user:
+      name: ignore  # 占位符，实际已禁用认证，此配置无意义但需填写（2.x 版本兼容）
+      password: ignore
+    # 2. 配置 Security 过滤器链：全局放行所有路径
+    filter-chain:
+      # 匹配所有请求路径（/** 表示所有层级的路径）
+      pattern: /**
+      # 对匹配的路径禁用认证（即不拦截）
+      security: none
+    # 3. 关闭 CSRF 保护（若不关闭，POST/PUT/DELETE 等请求仍可能被拦截）
+    csrf:
+      enabled: false
+    # 4. 关闭会话管理（避免因会话失效导致的拦截）
+    session:
+      management:
+        session-creation-policy: stateless  # 无状态模式，不依赖会话
 # token配置
 token:
     # 令牌自定义标识
