@@ -1,8 +1,14 @@
 package org.emilia.tienchin;
 
+import org.emilia.tienchin.mapper.SysMenuMapper;
+import org.emilia.tienchin.pojo.vo.RouterVo;
+import org.emilia.tienchin.service.SysMenuService;
 import org.emilia.tienchin.utils.JwtUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 /**
  * @author 江南一点雨
@@ -16,12 +22,14 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class GenerateCode {
+
+
+    @Autowired
+    private SysMenuService service;
     @Test
     public void ts1() {
-        String token = JwtUtils.generateToken("zhangsan");
-        System.out.println(
-               "==========="+ token
-        );
+        List<RouterVo> routers = service.getRouters();
+        System.out.println("routers = " + routers);
     }
 
 //    @Test

@@ -1,11 +1,13 @@
 package org.emilia.tienchin.controller.system;
 
 
+import org.emilia.tienchin.pojo.entity.SysMenu;
 import org.emilia.tienchin.pojo.entity.SysRole;
 import org.emilia.tienchin.pojo.entity.SysUser;
 import org.emilia.tienchin.pojo.model.LoginBody;
 import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.pojo.model.LoginUser;
+import org.emilia.tienchin.pojo.vo.RouterVo;
 import org.emilia.tienchin.service.SysLoginService;
 
 import org.emilia.tienchin.service.SysMenuService;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -80,9 +83,10 @@ public class SysLoginController {
      */
     @GetMapping("getRouters")
     public AjaxResult getRouters() {
-        AjaxResult result = new AjaxResult();
-        result.put("routers", null);
-        return result;
+//        AjaxResult result = new AjaxResult();
+        List<RouterVo> routers = menuService.getRouters();
+//        result.put("routers", routers);
+        return AjaxResult.success(routers);
 
     }
 }

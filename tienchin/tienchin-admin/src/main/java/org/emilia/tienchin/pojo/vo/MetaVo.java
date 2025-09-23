@@ -1,11 +1,16 @@
 package org.emilia.tienchin.pojo.vo;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * 路由显示信息
  *
  * @author tienchin
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class MetaVo {
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字
@@ -27,7 +32,6 @@ public class MetaVo {
      */
     private String link;
 
-    public MetaVo() {
-    }
+
 
 }

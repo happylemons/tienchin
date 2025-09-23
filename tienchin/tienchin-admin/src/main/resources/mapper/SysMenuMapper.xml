@@ -3,5 +3,8 @@
 <mapper namespace="org.emilia.tienchin.mapper.SysMenuMapper">
 
 
+    <select id="findAllMenus" resultType="org.emilia.tienchin.pojo.entity.SysMenu">
+        select * from  sys_menu
+    </select>
 </mapper>
 
