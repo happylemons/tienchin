@@ -31,27 +31,28 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 .sorted((Comparator.comparingInt(SysMenu::getOrderNum)))
                 .collect(Collectors.toList());
 
+        //遍历整个顶部Menu
         for (SysMenu m : topMenus) {
             m.setComponent("Layout");
-            if (m.getComponent() != null ) {
-                m.setPath("/");
-            }
+            m.setPath("/");
+//            if (m.getMenuType() .equals("C") ) {
+//                m.setPath("/");
+//            }else  {
+//                m.setPath(m.getPath());
+//            }
         }
-
         return topMenus.stream()
-                .map(menu -> convertToVo(menu, allMenus))
+                .map(menu -> convertToVo(menu))
                 .collect(Collectors.toList());
     }
-
-    private RouterVo convertToVo(SysMenu menu, List<SysMenu> allMenus) {
+    private RouterVo convertToVo(SysMenu menu) {
         RouterVo vo = new RouterVo();
-        vo.setName(menu.getMenuName());
+//        vo.setName(menu.getMenuName());
         vo.setPath(menu.getPath());
         vo.setHidden(false);
         vo.setComponent(menu.getComponent());
         vo.setQuery(menu.getQuery());
         vo.setMeta(new MetaVo(menu.getMenuName(), menu.getIcon(), true, menu.getPath()));
-
         return vo;
     }
 }
