@@ -2,6 +2,7 @@ package org.emilia.tienchin.pojo.vo;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
  */
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class MetaVo {
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字
