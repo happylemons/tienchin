@@ -48,28 +48,18 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     private RouterVo convertToVo(SysMenu menu, List<SysMenu> allMenus) {
         RouterVo vo = new RouterVo();
-//        vo.setName(menu.getMenuName());
-
         if (menu.getMenuId() == 1L) {
             vo.setPath("/" + menu.getPath());
             List<SysMenu> systemMenus = allMenus.stream().filter(m -> m.getParentId() == 1)
                     .sorted((Comparator.comparingInt(SysMenu::getOrderNum)))
                     .collect(Collectors.toList());
-
             vo.setName(upCaseFirst(menu.getPath()));
             vo.setRedirect("noRedirect");
             vo.setAlwaysShow(true);
             vo.setMeta(toMeta(menu));
-
             ArrayList<RouterVo> child = new ArrayList<>();
             for (SysMenu m : systemMenus) {
-                RouterVo c = new RouterVo();
-                String str = m.getPath();
-                c.setName(upCaseFirst(str));
-                c.setPath(m.getPath());
-                c.setHidden(false);
-                c.setComponent(m.getComponent());
-                c.setMeta(toMeta(m));
+                RouterVo c = toChildren(m);
                 child.add(c);
             }
             vo.setChildren(child);
@@ -81,13 +71,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         } else {
             vo.setPath("/");
             ArrayList<RouterVo> child = new ArrayList<>();
-            RouterVo c = new RouterVo();
-            String str = menu.getPath();
-            c.setName(upCaseFirst(str));
-            c.setPath(menu.getPath());
-            c.setHidden(false);
-            c.setComponent(menu.getComponent());
-            c.setMeta(toMeta(menu));
+            RouterVo c = toChildren(menu);
             child.add(c);
             vo.setChildren(child);
         }
@@ -97,6 +81,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return vo;
     }
 
+    public RouterVo toChildren(SysMenu menu) {
+        RouterVo c = new RouterVo();
+        c.setName(upCaseFirst(menu.getPath()));
+        c.setPath(menu.getPath());
+        c.setHidden(false);
+        c.setComponent(menu.getComponent());
+        c.setMeta(toMeta(menu));
+        return c;
+    }
 
     public String upCaseFirst(String str) {
         if (str == null || str.isEmpty()) {

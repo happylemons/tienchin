@@ -1,19 +1,25 @@
 package org.emilia.tienchin;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.emilia.tienchin.mapper.SysMenuMapper;
+import org.emilia.tienchin.pojo.entity.SysMenu;
 import org.emilia.tienchin.pojo.vo.RouterVo;
 import org.emilia.tienchin.service.SysMenuService;
 import org.emilia.tienchin.utils.JwtUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 江南一点雨
- * @
- 江南一点雨
+ * @ 江南一点雨
  * @网站 http://www.itboyhub.com
  * @国际站 http://www.emilia.org
  * @微信 a_java_boy
@@ -23,13 +29,12 @@ import java.util.List;
 @SpringBootTest
 public class GenerateCode {
 
-
     @Autowired
-    private SysMenuService service;
+    private SysMenuMapper mapper;
+
     @Test
     public void ts1() {
-        List<RouterVo> routers = service.getRouters();
-        System.out.println("routers = " + routers);
+
     }
 
 //    @Test
