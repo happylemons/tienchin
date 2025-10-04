@@ -2,19 +2,18 @@ package org.emilia.tienchin;
 
 import org.apache.poi.ss.formula.functions.T;
 import org.emilia.tienchin.mapper.SysMenuMapper;
+import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.pojo.entity.SysMenu;
 import org.emilia.tienchin.pojo.vo.RouterVo;
 import org.emilia.tienchin.service.SysMenuService;
+import org.emilia.tienchin.service.impl.SysMenuServiceImpl;
 import org.emilia.tienchin.utils.JwtUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.parameters.P;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -31,10 +30,13 @@ public class GenerateCode {
 
     @Autowired
     private SysMenuMapper mapper;
+    @Autowired
+    private SysMenuServiceImpl service;
 
     @Test
     public void ts1() {
-
+        AjaxResult treeselect = service.treeselect(null, 3L);
+        System.out.println("treeselect = " + treeselect);
     }
 
 //    @Test

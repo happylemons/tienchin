@@ -1,7 +1,9 @@
 package org.emilia.tienchin.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,11 +20,15 @@ public class BaseEntity implements Serializable {
     /**
      * 搜索值
      */
+    @TableField(exist = false)
+
     private String searchValue;
 
     /**
      * 创建者
      */
+    @TableField(exist = false)
+
     private String createBy;
 
     /**
@@ -50,6 +56,7 @@ public class BaseEntity implements Serializable {
     /**
      * 请求参数
      */
+    @TableField(exist = false)
     private HashMap<String, Object> params;
 
 }

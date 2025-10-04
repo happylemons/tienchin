@@ -7,6 +7,7 @@ import org.emilia.tienchin.pojo.business.TableDataInfo;
 import org.emilia.tienchin.pojo.constant.HttpStatus;
 import org.emilia.tienchin.pojo.model.LoginUser;
 import org.emilia.tienchin.utils.PageUtils;
+import org.emilia.tienchin.utils.SecurityUtils;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,6 +37,23 @@ public class BaseController {
                 }
             }
         });
+    }
+
+    /**
+     * 获取用户缓存信息
+     */
+    public LoginUser getLoginUser() {
+        return SecurityUtils.getLoginUser();
+    }
+
+    /**
+     * 获取登录用户id
+     */
+    public Long getUserId() {
+        if (getLoginUser() != null) {
+            return getLoginUser().getUserId();
+        }
+        return null;
     }
 
     /**
@@ -131,19 +149,7 @@ public class BaseController {
 //        return StringUtils.format("redirect:{}", url);
 //    }
 //
-//    /**
-//     * 获取用户缓存信息
-//     */
-//    public LoginUser getLoginUser() {
-//        return SecurityUtils.getLoginUser();
-//    }
-//
-//    /**
-//     * 获取登录用户id
-//     */
-//    public Long getUserId() {
-//        return getLoginUser().getUserId();
-//    }
+
 //
 //    /**
 //     * 获取登录部门id

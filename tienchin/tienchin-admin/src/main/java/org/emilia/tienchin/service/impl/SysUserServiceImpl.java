@@ -16,7 +16,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser findUser(String username) {
-
         return sysUserMapper.findUser(username);
     }
 

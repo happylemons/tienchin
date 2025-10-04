@@ -38,17 +38,24 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.cors().and().csrf().disable()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .authorizeRequests()
+//                .antMatchers("/login", "/captchaImage","/hi","getInfo").permitAll()
+//                .anyRequest().authenticated();
+//
+//        // 添加JWT过滤器
+//        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                .antMatchers("/login", "/captchaImage","/hi","getInfo").permitAll()
-                .anyRequest().authenticated();
-
-        // 添加JWT过滤器
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+        http.csrf(csrf -> csrf.disable())
+                .sessionManagement(session ->session.disable())
+                .authorizeRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }
 }

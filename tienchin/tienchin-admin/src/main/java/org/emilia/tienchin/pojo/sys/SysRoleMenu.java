@@ -6,6 +6,10 @@ package org.emilia.tienchin.pojo.sys;
  *
  * @author tienchin
  */
+
+import lombok.Data;
+
+@Data
 public class SysRoleMenu {
     /**
      * 角色ID
@@ -16,22 +20,4 @@ public class SysRoleMenu {
      * 菜单ID
      */
     private Long menuId;
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public Long getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-
-
 }

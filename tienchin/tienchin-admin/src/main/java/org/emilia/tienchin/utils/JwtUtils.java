@@ -1,6 +1,8 @@
 package org.emilia.tienchin.utils;
 
 import io.jsonwebtoken.*;
+import org.emilia.tienchin.pojo.model.LoginUser;
+import org.emilia.tienchin.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -74,9 +76,10 @@ public class JwtUtils {
     /**
      * 生成token
      */
-    public static String generateToken(String username) {
+    public static String generateToken(LoginUser loginUser) {
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, username);
+        claims.put("userId", loginUser.getUserId());
+        return doGenerateToken(claims, loginUser.getUsername());
     }
 
     /**

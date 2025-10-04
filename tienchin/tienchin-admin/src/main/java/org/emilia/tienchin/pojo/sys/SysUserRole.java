@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 用户和角色关联 sys_user_role
  */
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 public class SysUserRole {
     /**

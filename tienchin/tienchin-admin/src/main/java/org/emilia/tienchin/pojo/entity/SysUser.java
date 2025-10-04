@@ -1,6 +1,7 @@
 package org.emilia.tienchin.pojo.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -72,6 +73,7 @@ public class SysUser extends BaseEntity {
     /**
      * 盐加密
      */
+    @TableField(exist = false)
     private String salt;
 
     /**
@@ -104,27 +106,33 @@ public class SysUser extends BaseEntity {
 //            @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
 //            @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
 //    })
+    @TableField(exist = false)
     private SysDept dept;
 
     /**
      * 角色对象
      */
+    @TableField(exist = false)
     private List<SysRole> roles;
 
     /**
      * 角色组
      */
+    @TableField(exist = false)
     private Long[] roleIds;
 
     /**
      * 岗位组
      */
+    @TableField(exist = false)
     private Long[] postIds;
 
     /**
      * 角色ID
      */
+    @TableField(exist = false)
     private Long roleId;
+
 
 
 }

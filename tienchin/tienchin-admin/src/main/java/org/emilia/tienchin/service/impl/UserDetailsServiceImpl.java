@@ -1,9 +1,12 @@
 package org.emilia.tienchin.service.impl;
 
+import org.emilia.tienchin.filter.JwtAuthenticationFilter;
+import org.emilia.tienchin.mapper.SysUserMapper;
 import org.emilia.tienchin.pojo.entity.SysUser;
 import org.emilia.tienchin.pojo.model.LoginUser;
 import org.emilia.tienchin.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +17,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private SysUserService userService;
+
+    @Autowired
+    private SysUserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,7 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if ("2".equals(user.getDelFlag())) {
             throw new UsernameNotFoundException("账号已删除");
         }
-
         return createLoginUser(user);
     }
 

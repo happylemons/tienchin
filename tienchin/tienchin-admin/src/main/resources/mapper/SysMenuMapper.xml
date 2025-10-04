@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.emilia.tienchin.mapper.SysMenuMapper">
+    <update id="updateOrderNumBatch">
+        update sys_menu
+        set order_num = order_num + 1
+        where parent_id =  #{parentId}
+          and order_num >= #{orderNum}
+    </update>
 
 
     <select id="findAllMenus" resultType="org.emilia.tienchin.pojo.entity.SysMenu">
         select * from  sys_menu
     </select>
+
 </mapper>
 

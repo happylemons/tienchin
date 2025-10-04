@@ -12,19 +12,17 @@ import org.emilia.tienchin.service.SysLoginService;
 import org.emilia.tienchin.service.SysUserService;
 import org.emilia.tienchin.utils.IpUtils;
 import org.emilia.tienchin.utils.JwtUtils;
+import org.emilia.tienchin.utils.SecurityUtils;
 import org.emilia.tienchin.utils.UserAgentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
 import java.util.Date;
 
 
@@ -64,8 +62,7 @@ public class SysLoginServiceImpl extends ServiceImpl<SysUserMapper, SysUser> imp
 
         //安全上下文
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
+        UsernamePasswordAuthenticationToken aa = new  UsernamePasswordAuthenticationToken(username, password);
         // 生成token
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         String token = createToken(loginUser, request);
@@ -81,8 +78,7 @@ public class SysLoginServiceImpl extends ServiceImpl<SysUserMapper, SysUser> imp
 
     @Override
     public LoginUser getInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        LoginUser loginUser = SecurityUtils.getLoginUser();
         SysUser user = loginUser.getUser();
         SysDept dept = sysDeptMapper.selectByDeptId(loginUser.getDeptId());
         user.setDept(dept);
@@ -108,7 +104,7 @@ public class SysLoginServiceImpl extends ServiceImpl<SysUserMapper, SysUser> imp
         loginUser.setLoginTime(System.currentTimeMillis());
 
         // 生成token
-        String token = jwtUtils.generateToken(loginUser.getUsername());
+        String token = jwtUtils.generateToken(loginUser);
         loginUser.setToken(token);
 
         // 可以将用户信息存入缓存
