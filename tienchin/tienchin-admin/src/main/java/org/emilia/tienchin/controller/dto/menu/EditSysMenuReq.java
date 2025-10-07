@@ -1,4 +1,4 @@
-package org.emilia.tienchin.controller.dto;
+package org.emilia.tienchin.controller.dto.menu;
 
 import lombok.Data;
 import org.emilia.tienchin.enums.MenuType;

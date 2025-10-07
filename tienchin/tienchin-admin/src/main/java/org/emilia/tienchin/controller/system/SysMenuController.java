@@ -1,8 +1,8 @@
 package org.emilia.tienchin.controller.system;
 
 import org.emilia.tienchin.controller.common.BaseController;
-import org.emilia.tienchin.controller.dto.EditSysMenuReq;
-import org.emilia.tienchin.controller.dto.ListSysMenuReq;
+import org.emilia.tienchin.controller.dto.menu.EditSysMenuReq;
+import org.emilia.tienchin.controller.dto.menu.ListSysMenuReq;
 import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.pojo.business.TreeSelect;
 import org.emilia.tienchin.pojo.entity.SysMenu;
