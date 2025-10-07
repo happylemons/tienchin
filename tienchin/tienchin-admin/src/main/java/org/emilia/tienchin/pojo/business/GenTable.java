@@ -5,8 +5,8 @@
 //import org.emilia.tienchin.common.core.domain.BaseEntity;
 //import org.emilia.tienchin.common.utils.StringUtils;
 //
-//import javax.validation.Valid;
-//import javax.validation.constraints.NotBlank;
+//import jakarta.validation.Valid;
+//import jakarta.validation.constraints.NotBlank;
 //import java.util.List;
 //
 ///**

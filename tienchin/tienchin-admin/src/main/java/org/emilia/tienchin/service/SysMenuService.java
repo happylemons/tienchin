@@ -1,6 +1,7 @@
 package org.emilia.tienchin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.emilia.tienchin.controller.dto.menu.AddSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.EditSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.ListSysMenuReq;
 import org.emilia.tienchin.pojo.AjaxResult;
@@ -19,7 +20,7 @@ public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenu> selectMenus(ListSysMenuReq menu);
 
-    AjaxResult add(SysMenu menu);
+    AjaxResult add(AddSysMenuReq menu);
 
     AjaxResult edit(EditSysMenuReq menu);
 
@@ -30,4 +31,5 @@ public interface SysMenuService extends IService<SysMenu> {
     List<TreeSelect> selectMenusByUserId(Long userId);
 
     List<Long> checkedKeys(Long roleId);
+    SysMenu saveMenu(SysMenu menu);
 }

@@ -1,15 +1,24 @@
 package org.emilia.tienchin.utils;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.DefaultClaims;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.lang.Assert;
+import io.jsonwebtoken.security.Keys;
 import org.emilia.tienchin.pojo.model.LoginUser;
 import org.emilia.tienchin.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static io.jsonwebtoken.Claims.EXPIRATION;
+import static io.jsonwebtoken.Claims.ISSUED_AT;
 
 @Component
 public class JwtUtils {
@@ -55,7 +64,10 @@ public class JwtUtils {
      * 从token中获取所有声明
      */
     private static Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        byte[] bytes = (byte[]) Decoders.BASE64.decode(secret);
+        SecretKey secretKey = Keys.hmacShaKeyFor(bytes);
+        JwtParserBuilder jwtParserBuilder = Jwts.parser().verifyWith(secretKey);
+        return jwtParserBuilder.build().parseSignedClaims(token).getPayload();
     }
 
     /**
@@ -112,9 +124,9 @@ public class JwtUtils {
         final Date createdDate = new Date();
         final Date expirationDate = calculateExpirationDate(createdDate);
 
-        final Claims claims = getAllClaimsFromToken(token);
-        claims.setIssuedAt(createdDate);
-        claims.setExpiration(expirationDate);
+        DefaultClaims claims = (DefaultClaims) getAllClaimsFromToken(token);
+        claims.replace(ISSUED_AT, createdDate);
+        claims.replace(EXPIRATION, expirationDate);
 
         return Jwts.builder()
                 .setClaims(claims)

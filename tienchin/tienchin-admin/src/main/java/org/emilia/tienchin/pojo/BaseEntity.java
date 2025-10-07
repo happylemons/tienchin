@@ -3,7 +3,6 @@ package org.emilia.tienchin.pojo;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
 import java.util.Date;

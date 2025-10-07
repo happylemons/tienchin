@@ -2,6 +2,8 @@ package org.emilia.tienchin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.emilia.tienchin.controller.dto.menu.AddSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.EditSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.ListSysMenuReq;
 import org.emilia.tienchin.mapper.*;
@@ -15,7 +17,10 @@ import org.emilia.tienchin.pojo.sys.SysUserRole;
 import org.emilia.tienchin.pojo.vo.MetaVo;
 import org.emilia.tienchin.pojo.vo.RouterVo;
 import org.emilia.tienchin.service.SysMenuService;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -28,19 +33,21 @@ import java.util.stream.Collectors;
 import static org.emilia.tienchin.exception.ParamValidException.buildParamException;
 
 @Service
+@RequiredArgsConstructor
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
 
-    @Autowired
-    private SysMenuMapper sysMenuMapper;
-    @Autowired
-    private SysUserRoleMapper userRoleMapper;
-    @Autowired
-    private SysRoleMenuMapper roleMenuMapper;
-    @Autowired
-    private SysUserMapper sysUserMapper;
-    @Autowired
-    private SysRoleMapper sysRoleMapper;
+    private final SysMenuMapper sysMenuMapper;
+    private final SysUserRoleMapper userRoleMapper;
+    private final SysRoleMenuMapper roleMenuMapper;
+    private final SysUserMapper sysUserMapper;
+    private final SysRoleMapper sysRoleMapper;
+    private final Redisson redisson;
 
+    @Autowired
+    @Lazy
+    private SysMenuService sysMenuService;
+
+    private static final String menuParentLockPrefix = "MENU_PARENT_LOCK_";
 
     @Override
     public AjaxResult treeselect(SysMenu menu, Long userId) {
@@ -144,66 +151,115 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public AjaxResult add(SysMenu menu) {
-        Long menuId = menu.getMenuId();
-        SysMenu sys = getById(menuId);
-        if (sys != null) {
-            return AjaxResult.error("MenuId：" + menuId + "已存在");
-        }
-        Long parentId = menu.getParentId();
-        if (parentId.equals(menu.getMenuId())) {
-            return AjaxResult.error("不能选择自身作为父菜单");
-        }
-
+    public AjaxResult add(AddSysMenuReq menu) {
+//        Long menuId = menu.getMenuId();
+//        SysMenu sys = getById(menuId);
+//        if (sys != null) {
+//            return AjaxResult.error("MenuId：" + menuId + "已存在");
+//        }
+//        Long parentId = menu.getParentId();
+//        if (parentId.equals(menu.getMenuId())) {
+//            return AjaxResult.error("不能选择自身作为父菜单");
+//        }
+        SysMenu sysMenu = menu.buildEntity();
         //1.父菜单是否存在且合法
-        validateParentMenu(menu);
+        validateParentMenu(sysMenu);
 
         //2.验证菜单类型
-        validateMenuTypeFields(menu);
+        validateMenuTypeFields(sysMenu);
         // 4. 验证路由和组件路径
-        validatePathAndComponent(menu);
+        validatePathAndComponent(sysMenu);
 
         // 3. 处理排序号（如果为空则设置默认值）
-        handleOrderNum(menu);
+        RLock lock = redisson.getLock(menuParentLockPrefix + menu.getParentId());
 
-        int insert = sysMenuMapper.insert(menu);
-        return insert > 0 ? AjaxResult.success() : AjaxResult.error("故障！");
+        try {
+            lock.lock();
+            sysMenuService.saveMenu(sysMenu);
+        }finally {
+            lock.unlock();
+        }
+
+        return AjaxResult.success();
     }
 
-    private void handleOrderNum(SysMenu menu) {
-        Integer maxOrder = sysMenuMapper.selectOne(new QueryWrapper<SysMenu>()
-                        .select("MAX(order_num) as order_num")
-                        .eq("parent_id", menu.getParentId()))
-                .getOrderNum();
-        Integer order = menu.getOrderNum();
-        if (order < 0) {
-            AjaxResult.error("请输入正数");
-            return;
+//    private void handleOrderNum(SysMenu menu) {
+//        Long parentId = menu.getParentId();
+//        List<SysMenu> list = sysMenuMapper.selectList(new QueryWrapper<SysMenu>().eq("parent_id", parentId));
+//        Integer orderNum = 0;
+//        if (list == null) {
+//            if (menu.getOrderNum() != null) {
+//                orderNum = menu.getOrderNum();
+//            }
+//            orderNum = 1;
+//        }
+//
+//    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public SysMenu saveMenu(SysMenu menu) {
+
+        Integer orderNum = menu.getOrderNum();
+        if (orderNum == null) {
+            //给sysMenu赋一个orderNumber
+            SysMenu sysMenu = sysMenuMapper.selectOne(new QueryWrapper<SysMenu>()
+                    .select("MAX(order_num) as order_num")
+                    .eq("parent_id", menu.getParentId()));
+            int maxOrderNum = sysMenu == null ? sysMenu.getOrderNum()+1:1;
+            menu.setOrderNum(maxOrderNum);
+            sysMenuMapper.insert(menu);
+        }else if (checkOrderNumberIsExists(orderNum, menu.getParentId())){
+            throw buildParamException("orderNumber", "在当前目录下"+menu.getParentId()+"已经存在orderNumber"+menu.getOrderNum());
         }
-        Integer orderNum = 0;
-        if (order == null) {
-            //前端没有传递order的值
-            if (maxOrder == null) {
-                orderNum = 1;
-            } else {
-                orderNum = maxOrder + 1;
-            }
-            menu.setOrderNum(orderNum);
-        } else {
-            // 前端传递了order的值
-            orderNum = order;
-            if (maxOrder == null) {
-                orderNum = order;
-                menu.setOrderNum(orderNum);
-            }
-            menu.setOrderNum(orderNum);
-            int r = sysMenuMapper.updateOrderNumBatch(menu.getParentId(), order);
-            if (r > 0) {
-                AjaxResult.success("已更新菜单顺序");
-                return;
-            }
-        }
+        sysMenuMapper.insert(menu);
+        return menu;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//        Integer maxOrder = sysMenu.getOrderNum();
+//        Integer order = menu.getOrderNum();
+//        if (order < 0) {
+//            AjaxResult.error("请输入正数");
+//            return;
+//        }
+//        Integer orderNum = 0;
+//        if (order == null) {
+//            //前端没有传递order的值
+//            if (maxOrder == null) {
+//                orderNum = 1;
+//            } else {
+//                orderNum = maxOrder + 1;
+//            }
+//            menu.setOrderNum(orderNum);
+//        } else {
+//            // 前端传递了order的值
+//            orderNum = order;
+//            if (maxOrder == null) {
+//                orderNum = order;
+//                menu.setOrderNum(orderNum);
+//            }
+//            menu.setOrderNum(orderNum);
+//            int r = sysMenuMapper.updateOrderNumBatch(menu.getParentId(), order);
+//            if (r > 0) {
+//                AjaxResult.success("已更新菜单顺序");
+//                return;
+//            }
+//        }
+    }
+
+    private boolean checkOrderNumberIsExists(Integer orderNum, Long parentId) {
+        SysMenu sysMenu = sysMenuMapper.selectOne(new QueryWrapper<SysMenu>()
+                .select("1 as order_num")
+                .eq("parent_id", parentId)
+                .eq("order_num", orderNum))
+                ;
+        return sysMenu != null;
     }
 
     private void validateMenuTypeFields(SysMenu menu) {
@@ -262,12 +318,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     private void validateParentMenu(SysMenu menu) {
         Long parentId = menu.getParentId();
         if (parentId == 0) {
-            if (!"M".equals(menu.getMenuType())) {
+            if ("M".equals(menu.getMenuType())) {
                 throw buildParamException("parentId", "顶级菜单必须是目录类型");
             }
+            return;
         }
         SysMenu parentMenu = getById(parentId);
-        if (parentMenu == null) {
+        if (parentMenu == null && menu.getParentId() != 0) {
             throw buildParamException("parentId", "父菜单不存在");
         }
         String current = menu.getMenuType();
@@ -280,21 +337,26 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             throw buildParamException("parentId", "菜单的父菜单不能是按钮类型(F)");
         }
         // 检查是否存在循环引用（父菜单是当前菜单的子菜单）
-        checkCircularReference(menu.getMenuId(), parentId);
+        checkCircularReference(parentId);
 
     }
 
-    private void checkCircularReference(Long currentMenuId, Long parentId) {
-        Long tempParentId = parentId;
-        while (tempParentId != 0) {
-            SysMenu parent = getById(tempParentId);
-            if (parent == null) {
+    private void checkCircularReference(Long parentId) {
+        if (parentId == 0L) {
+            return;
+        }
+        List<Long> path = new ArrayList<>();
+        Long currentParentId = parentId;
+        while (true) {
+            SysMenu parentMenu = getById(parentId);
+            path.add(currentParentId);
+            if (parentMenu.getParentId() == 0L) {
                 break;
             }
-            if (currentMenuId.equals(tempParentId)) {
-                throw buildParamException("parentId", "菜单存在循环引用，请重新选择父菜单");
+            if (parentMenu.getParentId().equals(currentParentId)) {
+                throw buildParamException("parentId", "存在循环引用" + path + "->" + parentId);
             }
-            tempParentId = parent.getParentId();
+            currentParentId = parentMenu.getParentId();
         }
     }
 
@@ -317,7 +379,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         validateParentMenu(current);
         validateMenuTypeFields(current);
         validatePathAndComponent(current);
-        handleOrderNum(current);
+//        handleOrderNum(current);
 
         int update = sysMenuMapper.updateById(current);
         return update > 0 ? AjaxResult.success() : AjaxResult.error("修改错误，找不到对应的菜单id");
@@ -332,7 +394,18 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<SysMenu> selectMenus(ListSysMenuReq menu) {
-        return sysMenuMapper.selectList(new QueryWrapper<>());
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+
+        if (menu != null) {
+            if (menu.getMenuName() != null) {
+                String menuName = menu.getMenuName().replaceAll("^\\s+", "");
+                queryWrapper.like("menu_name", menuName);
+            }
+            if (menu.getStatus() != null) {
+                queryWrapper.eq("status", menu.getStatus());
+            }
+        }
+        return sysMenuMapper.selectList(queryWrapper);
     }
 
     @Override

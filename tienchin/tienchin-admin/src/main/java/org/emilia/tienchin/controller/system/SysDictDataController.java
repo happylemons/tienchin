@@ -1,6 +1,6 @@
 package org.emilia.tienchin.controller.system;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.extern.java.Log;
 import org.emilia.tienchin.controller.common.BaseController;

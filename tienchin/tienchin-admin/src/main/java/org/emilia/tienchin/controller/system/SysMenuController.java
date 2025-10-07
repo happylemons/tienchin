@@ -1,6 +1,7 @@
 package org.emilia.tienchin.controller.system;
 
 import org.emilia.tienchin.controller.common.BaseController;
+import org.emilia.tienchin.controller.dto.menu.AddSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.EditSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.ListSysMenuReq;
 import org.emilia.tienchin.pojo.AjaxResult;
@@ -36,7 +37,7 @@ public class SysMenuController extends BaseController {
      */
 //    @PreAuthorize("hasPermission('system:menu:list')")
     @GetMapping("/list")
-    public AjaxResult list(ListSysMenuReq menu) {
+    public AjaxResult list(@RequestBody @Validated ListSysMenuReq menu) {
         List<SysMenu> result = menuService.selectMenus(menu);
         return AjaxResult.success(result);
     }
@@ -49,7 +50,6 @@ public class SysMenuController extends BaseController {
     public AjaxResult getInfo(@PathVariable Long menuId) {
         SysMenu menu = menuService.selectByMenuId(menuId);
         return AjaxResult.success(menu);
-
     }
 
     /**
@@ -78,7 +78,7 @@ public class SysMenuController extends BaseController {
         List<TreeSelect> menus = menuService.selectMenusByUserId(userId);
         result.put("menus", menus);
         List<Long> keys = menuService.checkedKeys(roleId);
-        if (keys== null || keys.size() == 0) {
+        if (keys== null || keys.isEmpty()) {
             return AjaxResult.error("role id不存在");
         }
         result.put("checkedKeys", keys);
@@ -91,7 +91,7 @@ public class SysMenuController extends BaseController {
 //    @PreAuthorize("hasPermission('system:menu:add')")
 //    @Log(title = "菜单管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysMenu menu) {
+    public AjaxResult add(@Validated @RequestBody AddSysMenuReq menu) {
         return menuService.add(menu);
     }
 

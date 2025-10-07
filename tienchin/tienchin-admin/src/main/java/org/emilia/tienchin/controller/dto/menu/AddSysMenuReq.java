@@ -1,6 +1,5 @@
 package org.emilia.tienchin.controller.dto.menu;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.emilia.tienchin.enums.MenuType;
 import org.emilia.tienchin.pojo.entity.SysMenu;
@@ -13,11 +12,7 @@ import jakarta.validation.constraints.Size;
 
 
 @Data
-public class EditSysMenuReq {
-
-    @NotNull(message = "菜单Id不能为空")
-    private Long menuId;
-
+public class AddSysMenuReq {
     @NotBlank(message = "菜单名称不能为空")
     @Size(min = 0, max = 50, message = "菜单名称长度不能超过50个字符")
     private String menuName;

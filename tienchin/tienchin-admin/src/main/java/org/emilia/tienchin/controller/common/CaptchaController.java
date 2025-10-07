@@ -1,8 +1,8 @@
 package org.emilia.tienchin.controller.common;
 
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.service.SysConfigService;

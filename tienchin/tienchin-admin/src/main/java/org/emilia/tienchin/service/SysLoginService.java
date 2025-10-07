@@ -7,7 +7,7 @@ import org.emilia.tienchin.pojo.model.LoginUser;
 import org.emilia.tienchin.pojo.sys.SysConfig;
 import org.emilia.tienchin.pojo.model.LoginBody;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface SysLoginService extends IService<SysUser> {
 
