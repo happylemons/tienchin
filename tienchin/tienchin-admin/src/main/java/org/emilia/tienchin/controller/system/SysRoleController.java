@@ -19,12 +19,15 @@ import java.util.List;
 //import org.emilia.tienchin.system.service.ISysUserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.emilia.tienchin.controller.common.BaseController;
+import org.emilia.tienchin.controller.dto.role.ListSysRoleReq;
 import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.pojo.business.TableDataInfo;
 import org.emilia.tienchin.pojo.entity.SysRole;
 import org.emilia.tienchin.pojo.entity.SysUser;
 import org.emilia.tienchin.pojo.sys.SysUserRole;
+import org.emilia.tienchin.service.SysRoleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +38,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.xml.transform.Result;
 //import org.emilia.tienchin.common.constant.UserConstants;
 //import org.emilia.tienchin.web.controller.pojo.TableDataInfo;
 
@@ -45,13 +50,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/system/role")
+@RequiredArgsConstructor
 public class SysRoleController extends BaseController {
 
+    private final SysRoleService sysRoleService;
 
 //    @PreAuthorize("hasPermission('system:role:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysRole role) {
-        return null;
+    public TableDataInfo list(@RequestBody @Validated ListSysRoleReq role) {
+        TableDataInfo page = new TableDataInfo();
+        List<SysRole> result = sysRoleService.selectRoles(role);
+        page.setRows(result);
+
+        return page;
 
     }
 

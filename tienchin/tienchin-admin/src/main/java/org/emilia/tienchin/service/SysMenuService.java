@@ -26,7 +26,7 @@ public interface SysMenuService extends IService<SysMenu> {
 
     AjaxResult removeByMenuId(Long menuId);
 
-    AjaxResult treeselect(SysMenu menu,Long userId);
+    AjaxResult treeselect(Long userId);
 
     List<TreeSelect> selectMenusByUserId(Long userId);
 

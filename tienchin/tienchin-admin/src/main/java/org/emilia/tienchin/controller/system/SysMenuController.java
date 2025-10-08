@@ -1,5 +1,6 @@
 package org.emilia.tienchin.controller.system;
 
+import lombok.RequiredArgsConstructor;
 import org.emilia.tienchin.controller.common.BaseController;
 import org.emilia.tienchin.controller.dto.menu.AddSysMenuReq;
 import org.emilia.tienchin.controller.dto.menu.EditSysMenuReq;
@@ -28,10 +29,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/menu")
+@RequiredArgsConstructor
 public class SysMenuController extends BaseController {
-    @Autowired(required = false)
-    private SysMenuService menuService;
-
+    private final SysMenuService menuService;
     /**
      * 获取菜单列表
      */
@@ -56,12 +56,12 @@ public class SysMenuController extends BaseController {
      * 获取菜单下拉树列表
      */
     @GetMapping("/treeselect")
-    public AjaxResult treeselect(SysMenu menu) {
+    public AjaxResult treeselect() {
         Long userId = getUserId();
         if (userId == null) {
             return AjaxResult.error("获取用户id错误");
         }
-        return menuService.treeselect(menu, userId);
+        return menuService.treeselect( userId);
     }
 
     /**

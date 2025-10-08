@@ -3,6 +3,7 @@ package org.emilia.tienchin.utils;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.lang.Assert;
 import io.jsonwebtoken.security.Keys;
 import org.emilia.tienchin.pojo.model.LoginUser;
@@ -22,13 +23,18 @@ import static io.jsonwebtoken.Claims.ISSUED_AT;
 
 @Component
 public class JwtUtils {
-    //    @Value("${jwt.secret}")
-//    private static String secret;
-    private static String secret = "dhaehakd98432684hiuhiuahd";
+
+    private static String secret = "Her6QglSNt8vdpjBK6MEonWGTCj0camgaMmuHAcBj8OHmo8yLsA4wi8Yx7ZbIle3+1K3pMlgipPMkr7YpiYcBg==";
     private static long expiration = 24 * 60 * 60;
-//
+    //
 //    @Value("${jwt.expiration}")
 //    private static long expiration;
+
+    //生成512位的secret
+    private String secret() {
+        SecretKey key = Jwts.SIG.HS512.key().build();
+        return Encoders.BASE64.encode(key.getEncoded());
+    }
 
     /**
      * 从token中获取用户名
@@ -101,12 +107,7 @@ public class JwtUtils {
         final Date createdDate = new Date();
         final Date expirationDate = calculateExpirationDate(createdDate);
 
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(createdDate)
-                .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+        return Jwts.builder().claims(claims).subject(subject).issuedAt(createdDate).expiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 

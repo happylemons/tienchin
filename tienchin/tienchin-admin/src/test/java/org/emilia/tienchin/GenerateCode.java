@@ -1,5 +1,9 @@
 package org.emilia.tienchin;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Encoders;
+import io.jsonwebtoken.security.Keys;
 import org.apache.poi.ss.formula.functions.T;
 import org.emilia.tienchin.mapper.SysMenuMapper;
 import org.emilia.tienchin.pojo.AjaxResult;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.parameters.P;
 
+import javax.crypto.SecretKey;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,8 +40,15 @@ public class GenerateCode {
 
     @Test
     public void ts1() {
-        AjaxResult treeselect = service.treeselect(null, 3L);
-        System.out.println("treeselect = " + treeselect);
+        // 生成符合HS512要求的安全密钥
+        SecretKey key = Jwts.SIG.HS512.key().build();
+        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+// 如果你需要将密钥保存为字符串，可以进行Base64编码
+        String base64Key = Encoders.BASE64.encode(secretKey.getEncoded());
+        String b2 = Encoders.BASE64.encode(key.getEncoded());
+        System.out.println(b2);
+        System.out.println(base64Key);
     }
 
 //    @Test
