@@ -23,7 +23,7 @@
 <!--        <swagger.version>3.0.0</swagger.version>-->
         <kaptcha.version>2.3.2</kaptcha.version>
 <!--        <mybatis-spring-boot.version>2.2.2</mybatis-spring-boot.version>-->
-<!--        <pagehelper.boot.version>1.4.1</pagehelper.boot.version>-->
+        <pagehelper.boot.version>2.1.1</pagehelper.boot.version>
 <!--        <fastjson.version>1.2.80</fastjson.version>-->
         <oshi.version>6.9.0</oshi.version>
         <jna.version>5.18.1</jna.version>
@@ -73,6 +73,11 @@
                 <version>${druid.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+            </dependency>
 
             <!-- 解析客户端操作系统、浏览器等 -->
             <dependency>

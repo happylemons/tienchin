@@ -1,6 +1,7 @@
 package org.emilia.tienchin.controller.common;
 
 import com.alibaba.excel.util.DateUtils;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.pojo.business.TableDataInfo;
@@ -90,7 +91,7 @@ public class BaseController {
         rspData.setCode(HttpStatus.SUCCESS);
         rspData.setMsg("查询成功");
         rspData.setRows(list);
-//        rspData.setTotal(new PageInfo(list).getTotal());
+        rspData.setTotal(new PageInfo(list).getTotal());
         return rspData;
     }
 
@@ -149,7 +150,6 @@ public class BaseController {
 //        return StringUtils.format("redirect:{}", url);
         return null;
     }
-
 
 
     /**

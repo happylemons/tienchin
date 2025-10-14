@@ -18,29 +18,17 @@ import java.util.List;
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 用户ID
-     */
 //    @Excel(name = "用户序号", cellType = ColumnType.NUMERIC, prompt = "用户编号")
-    private Long userId;
+    private Long userId;  //用户ID
 
-    /**
-     * 部门ID
-     */
 //    @Excel(name = "部门编号", type = Type.IMPORT)
-    private Long deptId;
+    private Long deptId;  //部门ID
 
-    /**
-     * 用户账号
-     */
 //    @Excel(name = "登录名称")
-    private String userName;
+    private String userName;  //用户账号
 
-    /**
-     * 用户昵称
-     */
 //    @Excel(name = "用户名称")
-    private String nickName;
+    private String nickName;  //用户昵称
 
     /**
      * 用户邮箱

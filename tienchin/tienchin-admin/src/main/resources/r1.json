@@ -1,315 +1,63 @@
 {
-  "msg": "操作成功",
-  "code": 200,
-  "data": [
+  "total": 2,
+  "rows": [
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Clue",
-          "path": "clue",
-          "hidden": false,
-          "component": "tienchin/clue/index",
-          "meta": {
-            "title": "线索管理",
-            "icon": "checkbox",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": null,
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": "",
+      "updateTime": null,
+      "remark": "测试员",
+      "params": null,
+      "userId": 2,
+      "deptId": 105,
+      "userName": "ry",
+      "nickName": "TienChin健身_test",
+      "email": "ry@qq.com",
+      "phonenumber": "15666666666",
+      "sex": "1",
+      "avatar": "",
+      "password": "$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2",
+      "salt": null,
+      "status": "0",
+      "delFlag": "0",
+      "loginIp": "127.0.0.1",
+      "loginDate": "2023-01-16T08:20:26.000+00:00",
+      "dept": null,
+      "roles": null,
+      "roleIds": null,
+      "postIds": null,
+      "roleId": null
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Business",
-          "path": "business",
-          "hidden": false,
-          "component": "tienchin/business/index",
-          "meta": {
-            "title": "商机管理",
-            "icon": "edit",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Contract",
-          "path": "contract",
-          "hidden": false,
-          "component": "tienchin/contract/index",
-          "meta": {
-            "title": "合同管理",
-            "icon": "documentation",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Activity",
-          "path": "activity",
-          "hidden": false,
-          "component": "tienchin/activity/index",
-          "meta": {
-            "title": "促销活动",
-            "icon": "peoples",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Course",
-          "path": "course",
-          "hidden": false,
-          "component": "tienchin/course/index",
-          "meta": {
-            "title": "私教课程",
-            "icon": "list",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Analysis",
-          "path": "analysis",
-          "hidden": false,
-          "component": "tienchin/analysis/index",
-          "meta": {
-            "title": "统计分析",
-            "icon": "chart",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Channel",
-          "path": "channel",
-          "hidden": false,
-          "component": "tienchin/channel/index",
-          "meta": {
-            "title": "渠道管理",
-            "icon": "row",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Transfer",
-          "path": "transfer",
-          "hidden": false,
-          "component": "tienchin/transfer/index",
-          "meta": {
-            "title": "转派管理",
-            "icon": "example",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "name": "System",
-      "path": "/system",
-      "hidden": false,
-      "redirect": "noRedirect",
-      "component": "Layout",
-      "alwaysShow": true,
-      "meta": {
-        "title": "系统管理",
-        "icon": "system",
-        "noCache": false,
-        "link": null
-      },
-      "children": [
-        {
-          "name": "User",
-          "path": "user",
-          "hidden": false,
-          "component": "system/user/index",
-          "meta": {
-            "title": "用户管理",
-            "icon": "user",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Role",
-          "path": "role",
-          "hidden": false,
-          "component": "system/role/index",
-          "meta": {
-            "title": "角色管理",
-            "icon": "peoples",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Menu",
-          "path": "menu",
-          "hidden": false,
-          "component": "system/menu/index",
-          "meta": {
-            "title": "菜单管理",
-            "icon": "tree-table",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Dept",
-          "path": "dept",
-          "hidden": false,
-          "component": "system/dept/index",
-          "meta": {
-            "title": "部门管理",
-            "icon": "tree",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Post",
-          "path": "post",
-          "hidden": false,
-          "component": "system/post/index",
-          "meta": {
-            "title": "岗位管理",
-            "icon": "post",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Dict",
-          "path": "dict",
-          "hidden": false,
-          "component": "system/dict/index",
-          "meta": {
-            "title": "字典管理",
-            "icon": "dict",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Config",
-          "path": "config",
-          "hidden": false,
-          "component": "system/config/index",
-          "meta": {
-            "title": "参数设置",
-            "icon": "edit",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Notice",
-          "path": "notice",
-          "hidden": false,
-          "component": "system/notice/index",
-          "meta": {
-            "title": "通知公告",
-            "icon": "message",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Log",
-          "path": "log",
-          "hidden": false,
-          "meta": {
-            "title": "日志管理",
-            "icon": "log",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Monitor",
-          "path": "monitor",
-          "hidden": false,
-          "meta": {
-            "title": "系统监控",
-            "icon": "monitor",
-            "noCache": false,
-            "link": null
-          }
-        },
-        {
-          "name": "Tool",
-          "path": "tool",
-          "hidden": false,
-          "meta": {
-            "title": "系统工具",
-            "icon": "tool",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
-    },
-    {
-      "name": "Http://tienchin.vip",
-      "path": "http://tienchin.vip",
-      "hidden": false,
-      "component": "Layout",
-      "meta": {
-        "title": "天勤官网",
-        "icon": "guide",
-        "noCache": false,
-        "link": "http://tienchin.vip"
-      }
+      "searchValue": null,
+      "createBy": null,
+      "createTime": "2025-10-13 09:28:18",
+      "updateBy": "",
+      "updateTime": null,
+      "remark": null,
+      "params": null,
+      "userId": 6,
+      "deptId": 100,
+      "userName": "33",
+      "nickName": "3",
+      "email": "",
+      "phonenumber": "",
+      "sex": "0",
+      "avatar": "",
+      "password": "$2a$10$h4Ct.Hn6pxw1mC.Mm.oumusTKSw7GQqal49aUYpQjqw2OYVKrtT9a",
+      "salt": null,
+      "status": "0",
+      "delFlag": "0",
+      "loginIp": "",
+      "loginDate": null,
+      "dept": null,
+      "roles": null,
+      "roleIds": null,
+      "postIds": null,
+      "roleId": null
     }
-  ]
+  ],
+  "code": 200,
+  "msg": "查询成功"
 }

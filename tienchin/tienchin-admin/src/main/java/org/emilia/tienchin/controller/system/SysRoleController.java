@@ -18,10 +18,12 @@ import java.util.List;
 //import org.emilia.tienchin.system.service.ISysRoleService;
 //import org.emilia.tienchin.system.service.ISysUserService;
 //import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.emilia.tienchin.config.PageImpl;
 import org.emilia.tienchin.controller.common.BaseController;
-import org.emilia.tienchin.controller.dto.role.ListSysRoleReq;
+import org.emilia.tienchin.controller.dto.role.*;
 import org.emilia.tienchin.pojo.AjaxResult;
 import org.emilia.tienchin.pojo.business.TableDataInfo;
 import org.emilia.tienchin.pojo.entity.SysRole;
@@ -30,14 +32,7 @@ import org.emilia.tienchin.pojo.sys.SysUserRole;
 import org.emilia.tienchin.service.SysRoleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.transform.Result;
 //import org.emilia.tienchin.common.constant.UserConstants;
@@ -55,22 +50,17 @@ public class SysRoleController extends BaseController {
 
     private final SysRoleService sysRoleService;
 
-//    @PreAuthorize("hasPermission('system:role:list')")
+    //    @PreAuthorize("hasPermission('system:role:list')")
     @GetMapping("/list")
-    public TableDataInfo list(@RequestBody @Validated ListSysRoleReq role) {
-        TableDataInfo page = new TableDataInfo();
-        List<SysRole> result = sysRoleService.selectRoles(role);
-        page.setRows(result);
-
-        return page;
-
+    public TableDataInfo list(@RequestBody @Validated ListSysRoleReq role, PageImpl<SysRole> page) {
+        List<SysRole> result = sysRoleService.selectRoles(role, page);
+        return getDataTable(result);
     }
 
-//    @Log(title = "角色管理", businessType = BusinessType.EXPORT)
+    //    @Log(title = "角色管理", businessType = BusinessType.EXPORT)
 //    @PreAuthorize("hasPermission('system:role:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysRole role) {
-
     }
 
     /**
@@ -78,8 +68,9 @@ public class SysRoleController extends BaseController {
      */
 //    @PreAuthorize("hasPermission('system:role:query')")
     @GetMapping(value = "/{roleId}")
-    public AjaxResult getInfo(@PathVariable Long roleId) {
-        return null;
+    public AjaxResult getInfo(@PathVariable("roleId") Long roleId) {
+        SysRole role = sysRoleService.selectRoleById(roleId);
+        return AjaxResult.success(role);
 
     }
 
@@ -89,10 +80,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:add')")
 //    @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysRole role) {
-        return null;
-
-
+    public AjaxResult add(@Validated @RequestBody AddSysRoleReq role) {
+        return sysRoleService.add(role);
     }
 
     /**
@@ -101,8 +90,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:edit')")
 //    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysRole role) {
-        return null;
+    public AjaxResult edit(@Validated @RequestBody EditSysRoleReq role) {
+        return sysRoleService.edit(role);
 
     }
 
@@ -112,8 +101,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:edit')")
 //    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping("/dataScope")
-    public AjaxResult dataScope(@RequestBody SysRole role) {
-        return null;
+    public AjaxResult dataScope(@RequestBody @Validated DataScopeSysRoleReq role) {
+        return sysRoleService.dataScope(role);
 
     }
 
@@ -123,9 +112,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:edit')")
 //    @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody SysRole role) {
-        return null;
-
+    public AjaxResult changeStatus(@RequestBody @Validated ChangeStatusRoleReq role) {
+        return sysRoleService.changeStatus(role);
     }
 
     /**
@@ -134,9 +122,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:remove')")
 //    @Log(title = "角色管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{roleIds}")
-    public AjaxResult remove(@PathVariable Long[] roleIds) {
-        return null;
-
+    public AjaxResult remove(@PathVariable("roleIds") Long[] roleIds) {
+        return sysRoleService.remove(roleIds);
     }
 
     /**
@@ -145,8 +132,7 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:query')")
     @GetMapping("/optionselect")
     public AjaxResult optionselect() {
-        return null;
-
+        return sysRoleService.optionselect();
     }
 
     /**
@@ -154,9 +140,9 @@ public class SysRoleController extends BaseController {
      */
 //    @PreAuthorize("hasPermission('system:role:list')")
     @GetMapping("/authUser/allocatedList")
-    public TableDataInfo allocatedList(SysUser user) {
-        return null;
-
+    public TableDataInfo allocatedList(@RequestParam("roleId") Long roleId, PageImpl<SysUser> page) {
+        List<SysUser> result = sysRoleService.allocatedList(roleId, page);
+        return getDataTable(result);
     }
 
     /**
@@ -164,9 +150,9 @@ public class SysRoleController extends BaseController {
      */
 //    @PreAuthorize("hasPermission('system:role:list')")
     @GetMapping("/authUser/unallocatedList")
-    public TableDataInfo unallocatedList(SysUser user) {
-        return null;
-
+    public TableDataInfo unallocatedList(@RequestParam("roleId") Long roleId, PageImpl<SysUser> page) {
+        List<SysUser> result = sysRoleService.unallocatedList(roleId, page);
+        return getDataTable(result);
     }
 
     /**
