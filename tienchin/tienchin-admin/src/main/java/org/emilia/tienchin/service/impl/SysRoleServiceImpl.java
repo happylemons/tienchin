@@ -214,6 +214,78 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return page.getRecords();
     }
 
+    @Override
+    public AjaxResult cancelAuthUser(Long roleId, Long userId) {
+        roleExists(roleId);
+        userExists(userId);
+        roleUserExists(roleId, userId);
+        userRoleMapper.delete(new QueryWrapper<SysUserRole>().eq("role_id", roleId).eq("user_id", userId));
+        return AjaxResult.success();
+    }
+
+    @Override
+    @Transactional
+    public AjaxResult cancelAuthUserAll(Long roleId, Long[] userIds) {
+        roleExists(roleId);
+        for (Long userId : userIds) {
+            userExists(userId);
+            roleUserExists(roleId, userId);
+        }
+        for (Long userId : userIds) {
+            QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<SysUserRole>().eq("role_id", roleId).eq("user_id", userId);
+            userRoleMapper.delete(queryWrapper);
+        }
+        return AjaxResult.success();
+    }
+
+    @Override
+    @Transactional
+    public AjaxResult selectAuthUserAll(Long roleId, Long[] userIds) {
+
+        //1. 角色存在
+        roleExists(roleId);
+        //2. 用户存在
+        for (Long userId : userIds) {
+            userExists(userId);
+            //3. 对应关系不存在
+            roleUserNotExists(roleId, userId);
+            userRoleMapper.insert(new SysUserRole(roleId, userId));
+        }
+        return AjaxResult.success();
+    }
+
+
+    private void roleExists(Long roleId) {
+        SysRole sysRole = sysRoleMapper.selectOne(new QueryWrapper<SysRole>().eq("role_id", roleId));
+        if (sysRole == null) {
+            throw buildParamException("roleId", "当前角色" + roleId + "不存在");
+        }
+    }
+
+    private void userExists(Long userId) {
+        SysUser user = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("user_id", userId));
+        if (user == null) {
+            throw buildParamException("userId", "用户" + userId + "不存在");
+        }
+    }
+
+    @Transactional
+    private void roleUserExists(Long roleId, Long userId) {
+        QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<SysUserRole>().eq("user_id", userId).eq("role_id", roleId);
+        SysUserRole userRole = userRoleMapper.selectOne(queryWrapper);
+        if (userRole == null) {
+            throw buildParamException("roleId/userId", "该角色roleId: " + roleId + "未被分配至该用户userId:" + userId);
+        }
+    }
+
+    private void roleUserNotExists(Long roleId, Long userId) {
+        QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<SysUserRole>().eq("user_id", userId).eq("role_id", roleId);
+        SysUserRole userRole = userRoleMapper.selectOne(queryWrapper);
+        if (userRole != null) {
+            throw buildParamException("roleId/userId", "该角色roleId: " + roleId + "已经分配至该用户userId:" + userId);
+        }
+    }
+
     private <T> void toPage(List<T> list, Page<T> page) {
         long pageNum = page.getCurrent();
         long pageSize = page.getSize();

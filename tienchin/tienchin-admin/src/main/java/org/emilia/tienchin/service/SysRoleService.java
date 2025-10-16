@@ -35,4 +35,11 @@ public interface SysRoleService extends IService<SysRole> {
     List<SysUser> allocatedList(Long roleId, Page<SysUser> page);
 
     List<SysUser> unallocatedList(Long roleId, Page<SysUser> page);
+
+    AjaxResult cancelAuthUser(Long roleId, Long userId);
+
+    AjaxResult cancelAuthUserAll(Long roleId, Long[] userIds);
+
+    AjaxResult selectAuthUserAll(Long roleId, Long[] userIds);
+
 }

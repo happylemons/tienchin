@@ -161,9 +161,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:edit')")
 //    @Log(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/cancel")
-    public AjaxResult cancelAuthUser(@RequestBody SysUserRole userRole) {
-        return null;
-
+    public AjaxResult cancelAuthUser(@RequestParam("roleId") Long roleId, @RequestParam("userId") Long userId) {
+        return sysRoleService.cancelAuthUser(roleId, userId);
     }
 
     /**
@@ -172,9 +171,8 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:edit')")
 //    @Log(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/cancelAll")
-    public AjaxResult cancelAuthUserAll(Long roleId, Long[] userIds) {
-        return null;
-
+    public AjaxResult cancelAuthUserAll(@RequestParam("roleId") Long roleId, @RequestParam("userIds") Long[] userIds) {
+        return sysRoleService.cancelAuthUserAll(roleId, userIds);
     }
 
     /**
@@ -183,8 +181,7 @@ public class SysRoleController extends BaseController {
 //    @PreAuthorize("hasPermission('system:role:edit')")
 //    @Log(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/selectAll")
-    public AjaxResult selectAuthUserAll(Long roleId, Long[] userIds) {
-        return null;
-
+    public AjaxResult selectAuthUserAll(@RequestParam("roleId") Long roleId, @RequestParam("userIds") Long[] userIds) {
+        return sysRoleService.selectAuthUserAll(roleId, userIds);
     }
 }

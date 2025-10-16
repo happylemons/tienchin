@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SysUserRole {
     private Long userId;
     private Long roleId;

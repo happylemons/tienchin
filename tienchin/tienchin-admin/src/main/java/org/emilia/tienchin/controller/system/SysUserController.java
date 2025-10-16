@@ -30,9 +30,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("hasPermission('system:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysUser user) {
-
         return null;
-
     }
 
 //    @Log(title = "用户管理", businessType = BusinessType.EXPORT)

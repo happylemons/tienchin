@@ -3,9 +3,9 @@
 <mapper namespace="org.emilia.tienchin.mapper.SysRoleMapper">
 
     <select id="selectByUserId" resultType="org.emilia.tienchin.pojo.entity.SysRole">
-        select *
-        from sys_role
-        where role_id =
-              (select role_id from sys_user_role where user_id = #{userId})
+        select * from sys_role
+        where
+        role_id =
+        (select role_id from sys_user_role where user_id = #{userId})
     </select>
 </mapper>
