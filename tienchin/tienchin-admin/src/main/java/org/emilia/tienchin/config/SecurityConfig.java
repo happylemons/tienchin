@@ -58,4 +58,6 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }
+
+
 }

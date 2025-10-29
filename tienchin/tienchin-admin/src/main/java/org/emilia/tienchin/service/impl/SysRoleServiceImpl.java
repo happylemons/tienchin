@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.core.injector.methods.SelectPage;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.apache.poi.ss.formula.functions.T;
 import org.emilia.tienchin.controller.dto.role.*;
 import org.emilia.tienchin.mapper.*;
@@ -45,6 +49,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private final SysDeptMapper sysDeptMapper;
     private final SysRoleDeptMapper roleDeptMapper;
     private final SysUserRoleMapper userRoleMapper;
+    private final HttpServletResponse response;
 
     @Override
     public List<SysRole> roles(Long userId) {
@@ -65,6 +70,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             if (role.getStatus() != null) {
                 queryWrapper.eq("status", role.getStatus());
             }
+
         }
         return sysRoleMapper.selectPage(page, queryWrapper).getRecords();
     }
@@ -252,6 +258,17 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             userRoleMapper.insert(new SysUserRole(roleId, userId));
         }
         return AjaxResult.success();
+    }
+
+    @Override
+    @SneakyThrows
+    public void export() {
+        List<SysRole> sysRoles = sysRoleMapper.selectList(null);
+        List<SysRoleCsvDto> list = sysRoles.stream()
+                .map(SysRoleCsvDto::new)
+                .collect(Collectors.toList());
+        StatefulBeanToCsv<SysRoleCsvDto> beanToCsv = new StatefulBeanToCsvBuilder<SysRoleCsvDto>(response.getWriter()).build();
+        beanToCsv.write(list);
     }
 
 

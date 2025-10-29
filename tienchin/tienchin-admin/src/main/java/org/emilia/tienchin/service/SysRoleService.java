@@ -42,4 +42,5 @@ public interface SysRoleService extends IService<SysRole> {
 
     AjaxResult selectAuthUserAll(Long roleId, Long[] userIds);
 
+    void export();
 }

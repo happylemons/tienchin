@@ -60,7 +60,11 @@ public class SysRoleController extends BaseController {
     //    @Log(title = "角色管理", businessType = BusinessType.EXPORT)
 //    @PreAuthorize("hasPermission('system:role:export')")
     @PostMapping("/export")
-    public void export(HttpServletResponse response, SysRole role) {
+    public void export(HttpServletResponse response) {
+        response.setContentType("text/csv;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=\"role_export.csv\"");
+        sysRoleService.export();
     }
 
     /**
