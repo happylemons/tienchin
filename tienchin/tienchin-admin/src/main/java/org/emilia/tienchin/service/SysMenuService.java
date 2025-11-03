@@ -31,5 +31,6 @@ public interface SysMenuService extends IService<SysMenu> {
     List<TreeSelect> selectMenusByUserId(Long userId);
 
     List<Long> checkedKeys(Long roleId);
+
     SysMenu saveMenu(SysMenu menu);
 }

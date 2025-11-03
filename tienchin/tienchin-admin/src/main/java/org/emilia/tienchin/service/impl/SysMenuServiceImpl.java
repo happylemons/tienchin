@@ -350,14 +350,85 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<RouterVo> getRouters() {
-        List<SysMenu> allMenus = sysMenuMapper.findAllMenus();
+        List<SysMenu> allMenus = sysMenuMapper.findAllMenus().stream().filter(m -> !m.getMenuType().equals("F")).collect(Collectors.toList());
         List<SysMenu> topMenus = allMenus.stream()
                 .filter(m -> !Objects.equals(m.getMenuType(), "F") && m.getParentId() == 0L)
                 .sorted((m1, m2) -> m1.getOrderNum().compareTo(m2.getOrderNum()))
                 .collect(Collectors.toList());
-        List<RouterVo> routerVos = convertMenusToRouterVo(topMenus, allMenus);
-        System.out.println("routerVos = " + routerVos);
+        ArrayList<RouterVo> routerVos = new ArrayList<>();
+        for (SysMenu topMenu : topMenus) {
+            RouterVo routerVo = new RouterVo();
+            if (topMenu.getMenuId() == 1) {
+                routerVo.setPath("/" + topMenu.getPath());
+                routerVo.setName(upCaseFirst(topMenu.getPath()));
+                routerVo.setRedirect("noRedirect");
+                routerVo.setComponent("Layout");
+                routerVo.setAlwaysShow(true);
+                routerVo.setMeta(toMeta(topMenu));
+                ArrayList<RouterVo> sunList = new ArrayList<>();
+                List<SysMenu> children = findChildren(topMenu, allMenus);
+                for (SysMenu childMenu : children) {
+                    RouterVo childVo = new RouterVo();
+                    childVo.setPath(childMenu.getPath());
+                    childVo.setComponent(childMenu.getComponent());
+                    childVo.setName(upCaseFirst(childMenu.getPath()));
+                    childVo.setMeta(toMeta(childMenu));
+                    childVo.setHidden(false);
+                    sunList.add(childVo);
+                }
+                routerVo.setChildren(sunList);
+                routerVos.add(routerVo);
+            } else if (topMenu.getMenuId() == 4) {
+                routerVo.setPath(topMenu.getPath());
+                routerVo.setName(upCaseFirst(topMenu.getPath()));
+                routerVo.setHidden(false);
+                routerVo.setComponent("Layout");
+                routerVo.setMeta(toMeta(topMenu));
+                routerVos.add(routerVo);
+            } else {
+                routerVo.setPath("/");
+                routerVo.setHidden(false);
+                routerVo.setComponent("Layout");
+                ArrayList<RouterVo> cl = new ArrayList<>();
+                RouterVo c = new RouterVo();
+                c.setName(upCaseFirst(topMenu.getPath()));
+                c.setPath(topMenu.getPath());
+                c.setHidden(false);
+                c.setComponent(topMenu.getComponent());
+                c.setMeta(toMeta(topMenu));
+                ArrayList<RouterVo> sunList = new ArrayList<>();
+                List<SysMenu> children = findChildren(topMenu, allMenus);
+                for (SysMenu childMenu : children) {
+                    RouterVo childVo = new RouterVo();
+                    childVo.setPath(childMenu.getPath());
+                    childVo.setComponent(childMenu.getComponent());
+                    childVo.setName(upCaseFirst(childMenu.getPath()));
+                    childVo.setMeta(toMeta(childMenu));
+                    childVo.setHidden(false);
+                    sunList.add(childVo);
+                }
+                c.setChildren(sunList);
+                cl.add(c);
+                routerVo.setChildren(cl);
+                routerVos.add(routerVo);
+            }
+        }
+        for (RouterVo routerVo : routerVos) {
+            System.out.println(routerVo);
+        }
         return routerVos;
+    }
+
+    public List<SysMenu> findChildren(SysMenu topMenu, List<SysMenu> allMenus) {
+        List<SysMenu> children = allMenus.stream()
+                .filter(m -> m.getParentId().equals(topMenu.getMenuId()))
+                .sorted((m1, m2) -> m1.getOrderNum().compareTo(m2.getOrderNum()))
+                .collect(Collectors.toList());
+        topMenu.setChildren(children);
+        for (SysMenu child : children) {
+            findChildren(child, allMenus);
+        }
+        return children;
     }
 
 
@@ -380,8 +451,44 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 top.setChildren(child);
                 result.add(top);
             }
+            if (menu.getMenuId() == 1L) {
+                RouterVo top = new RouterVo();
+                top.setPath("/");
+                top.setHidden(false);
+                top.setComponent("Layout");
+                List<SysMenu> sysMenuList = allMenus.stream().filter(m -> m.getParentId() == 1L).collect(Collectors.toList());
+
+                ArrayList<RouterVo> child = new ArrayList<>();
+                RouterVo c = new RouterVo();
+                c.setName(upCaseFirst(menu.getPath()));
+                c.setPath(menu.getPath());
+                c.setHidden(false);
+                c.setComponent(menu.getComponent());
+                c.setMeta(toMeta(menu));
+                child.add(c);
+                top.setChildren(child);
+                result.add(top);
+            }
         }
         return result;
+    }
+
+    public RouterVo systemToRouterVo1(SysMenu menu, List<SysMenu> allMenus) {
+        RouterVo sysTop = new RouterVo();
+        sysTop.setName(upCaseFirst(menu.getPath()));
+        sysTop.setPath("/" + menu.getPath());
+        sysTop.setHidden(false);
+        sysTop.setRedirect("noRRedirect");
+        sysTop.setAlwaysShow(true);
+        sysTop.setComponent("Layout");
+        sysTop.setMeta(toMeta(menu));
+        List<RouterVo> vos = new ArrayList<>();
+
+        while (!menu.getMenuType().equals("F")) {
+            vos = findByParentId(menu.getParentId(), allMenus);
+        }
+        sysTop.setChildren(vos);
+        return sysTop;
     }
 
     public RouterVo systemToRouterVo(SysMenu menu, List<SysMenu> allMenus) {

@@ -1,187 +1,176 @@
 {
   "msg": "操作成功",
   "code": 200,
-  "roles": [
+  "data": [
     {
-      "searchValue": null,
-      "createBy": null,
-      "createTime": "2023-01-17 02:51:57",
-      "updateBy": null,
-      "updateTime": null,
-      "remark": null,
-      "params": {},
-      "roleId": 3,
-      "roleName": "渠道管理员",
-      "roleKey": "channel_role",
-      "roleSort": "0",
-      "dataScope": "1",
-      "menuCheckStrictly": true,
-      "deptCheckStrictly": true,
-      "status": "0",
-      "delFlag": "0",
-      "flag": false,
-      "menuIds": null,
-      "deptIds": null,
-      "admin": false
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Clue",
+          "path": "clue",
+          "hidden": false,
+          "component": "tienchin/clue/index",
+          "meta": {
+            "title": "线索管理",
+            "icon": "checkbox",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
     },
     {
-      "searchValue": null,
-      "createBy": null,
-      "createTime": "2023-01-18 07:29:16",
-      "updateBy": null,
-      "updateTime": null,
-      "remark": null,
-      "params": {},
-      "roleId": 4,
-      "roleName": "线索管理员",
-      "roleKey": "clue_role",
-      "roleSort": "0",
-      "dataScope": "1",
-      "menuCheckStrictly": true,
-      "deptCheckStrictly": true,
-      "status": "0",
-      "delFlag": "0",
-      "flag": true,
-      "menuIds": null,
-      "deptIds": null,
-      "admin": false
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Business",
+          "path": "business",
+          "hidden": false,
+          "component": "tienchin/business/index",
+          "meta": {
+            "title": "商机管理",
+            "icon": "edit",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
     },
     {
-      "searchValue": null,
-      "createBy": null,
-      "createTime": "2023-02-26 08:04:55",
-      "updateBy": null,
-      "updateTime": null,
-      "remark": null,
-      "params": {},
-      "roleId": 5,
-      "roleName": "业务经理",
-      "roleKey": "contract_role",
-      "roleSort": "0",
-      "dataScope": "1",
-      "menuCheckStrictly": true,
-      "deptCheckStrictly": true,
-      "status": "0",
-      "delFlag": "0",
-      "flag": true,
-      "menuIds": null,
-      "deptIds": null,
-      "admin": false
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Contract",
+          "path": "contract",
+          "hidden": false,
+          "component": "tienchin/contract/index",
+          "meta": {
+            "title": "合同管理",
+            "icon": "documentation",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
     },
     {
-      "searchValue": null,
-      "createBy": null,
-      "createTime": "2023-01-16 16:20:27",
-      "updateBy": null,
-      "updateTime": null,
-      "remark": "普通角色",
-      "params": {},
-      "roleId": 2,
-      "roleName": "普通角色",
-      "roleKey": "common",
-      "roleSort": "2",
-      "dataScope": "2",
-      "menuCheckStrictly": true,
-      "deptCheckStrictly": true,
-      "status": "0",
-      "delFlag": "0",
-      "flag": false,
-      "menuIds": null,
-      "deptIds": null,
-      "admin": false
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Activity",
+          "path": "activity",
+          "hidden": false,
+          "component": "tienchin/activity/index",
+          "meta": {
+            "title": "促销活动",
+            "icon": "peoples",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Course",
+          "path": "course",
+          "hidden": false,
+          "component": "tienchin/course/index",
+          "meta": {
+            "title": "私教课程",
+            "icon": "list",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Analysis",
+          "path": "analysis",
+          "hidden": false,
+          "component": "tienchin/analysis/index",
+          "meta": {
+            "title": "统计分析",
+            "icon": "chart",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Channel",
+          "path": "channel",
+          "hidden": false,
+          "component": "tienchin/channel/index",
+          "meta": {
+            "title": "渠道管理",
+            "icon": "row",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Transfer",
+          "path": "transfer",
+          "hidden": false,
+          "component": "tienchin/transfer/index",
+          "meta": {
+            "title": "转派管理",
+            "icon": "example",
+            "noCache": false,
+            "link": null
+          }
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "hidden": false,
+      "component": "Layout",
+      "children": [
+        {
+          "name": "Http://tienchin.vip",
+          "path": "http://tienchin.vip",
+          "hidden": false,
+          "meta": {
+            "title": "天勤官网",
+            "icon": "guide",
+            "noCache": false,
+            "link": "http://tienchin.vip"
+          }
+        }
+      ]
     }
-  ],
-  "user": {
-    "searchValue": null,
-    "createBy": "admin",
-    "createTime": "2023-01-17 02:50:55",
-    "updateBy": null,
-    "updateTime": null,
-    "remark": null,
-    "params": {},
-    "userId": 3,
-    "deptId": 100,
-    "userName": "zhangsan",
-    "nickName": "张三",
-    "email": "111@qq.com",
-    "phonenumber": "13011111111",
-    "sex": "0",
-    "avatar": "",
-    "salt": null,
-    "status": "0",
-    "delFlag": "0",
-    "loginIp": "127.0.0.1",
-    "loginDate": "2025-10-16T17:52:18.000+08:00",
-    "dept": {
-      "searchValue": null,
-      "createBy": null,
-      "createTime": null,
-      "updateBy": null,
-      "updateTime": null,
-      "remark": null,
-      "params": {},
-      "deptId": 100,
-      "parentId": 0,
-      "ancestors": "0",
-      "deptName": "TienChin健身科技",
-      "orderNum": 0,
-      "leader": "TienChin健身",
-      "phone": null,
-      "email": null,
-      "status": "0",
-      "delFlag": null,
-      "parentName": null,
-      "children": []
-    },
-    "roles": [
-      {
-        "searchValue": null,
-        "createBy": null,
-        "createTime": null,
-        "updateBy": null,
-        "updateTime": null,
-        "remark": null,
-        "params": {},
-        "roleId": 4,
-        "roleName": "线索管理员",
-        "roleKey": "clue_role",
-        "roleSort": "0",
-        "dataScope": "1",
-        "menuCheckStrictly": false,
-        "deptCheckStrictly": false,
-        "status": "0",
-        "delFlag": null,
-        "flag": false,
-        "menuIds": null,
-        "deptIds": null,
-        "admin": false
-      },
-      {
-        "searchValue": null,
-        "createBy": null,
-        "createTime": null,
-        "updateBy": null,
-        "updateTime": null,
-        "remark": null,
-        "params": {},
-        "roleId": 5,
-        "roleName": "业务经理",
-        "roleKey": "contract_role",
-        "roleSort": "0",
-        "dataScope": "1",
-        "menuCheckStrictly": false,
-        "deptCheckStrictly": false,
-        "status": "0",
-        "delFlag": null,
-        "flag": false,
-        "menuIds": null,
-        "deptIds": null,
-        "admin": false
-      }
-    ],
-    "roleIds": null,
-    "postIds": null,
-    "roleId": null,
-    "admin": false
-  }
+  ]
 }
