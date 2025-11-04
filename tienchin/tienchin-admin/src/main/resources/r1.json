@@ -155,23 +155,16 @@
       ]
     },
     {
-      "name": "System",
-      "path": "/system",
+      "path": "/",
       "hidden": false,
-      "redirect": "noRRedirect",
-      "alwaysShow": true,
-      "meta": {
-        "title": "系统管理",
-        "icon": "system",
-        "noCache": false,
-        "link": null
-      },
+      "component": "Layout",
       "children": [
         {
-          "name": "User",
-          "path": "user",
+          "name": "用户管理",
+          "path": "/",
           "hidden": false,
           "component": "system/user/index",
+          "alwaysShow": true,
           "meta": {
             "title": "用户管理",
             "icon": "user",
@@ -180,10 +173,11 @@
           }
         },
         {
-          "name": "Role",
-          "path": "role",
+          "name": "角色管理",
+          "path": "/",
           "hidden": false,
           "component": "system/role/index",
+          "alwaysShow": true,
           "meta": {
             "title": "角色管理",
             "icon": "peoples",
@@ -192,10 +186,11 @@
           }
         },
         {
-          "name": "Menu",
-          "path": "menu",
+          "name": "菜单管理",
+          "path": "/",
           "hidden": false,
           "component": "system/menu/index",
+          "alwaysShow": true,
           "meta": {
             "title": "菜单管理",
             "icon": "tree-table",
@@ -204,10 +199,11 @@
           }
         },
         {
-          "name": "Dept",
-          "path": "dept",
+          "name": "部门管理",
+          "path": "/",
           "hidden": false,
           "component": "system/dept/index",
+          "alwaysShow": true,
           "meta": {
             "title": "部门管理",
             "icon": "tree",
@@ -216,10 +212,11 @@
           }
         },
         {
-          "name": "Post",
-          "path": "post",
+          "name": "岗位管理",
+          "path": "/",
           "hidden": false,
           "component": "system/post/index",
+          "alwaysShow": true,
           "meta": {
             "title": "岗位管理",
             "icon": "post",
@@ -228,10 +225,11 @@
           }
         },
         {
-          "name": "Dict",
-          "path": "dict",
+          "name": "字典管理",
+          "path": "/",
           "hidden": false,
           "component": "system/dict/index",
+          "alwaysShow": true,
           "meta": {
             "title": "字典管理",
             "icon": "dict",
@@ -240,10 +238,11 @@
           }
         },
         {
-          "name": "Config",
-          "path": "config",
+          "name": "参数设置",
+          "path": "/",
           "hidden": false,
           "component": "system/config/index",
+          "alwaysShow": true,
           "meta": {
             "title": "参数设置",
             "icon": "edit",
@@ -252,10 +251,11 @@
           }
         },
         {
-          "name": "Notice",
-          "path": "notice",
+          "name": "通知公告",
+          "path": "/",
           "hidden": false,
           "component": "system/notice/index",
+          "alwaysShow": true,
           "meta": {
             "title": "通知公告",
             "icon": "message",
@@ -264,9 +264,10 @@
           }
         },
         {
-          "name": "Log",
-          "path": "log",
+          "name": "日志管理",
+          "path": "/",
           "hidden": false,
+          "alwaysShow": true,
           "meta": {
             "title": "日志管理",
             "icon": "log",
@@ -275,9 +276,11 @@
           }
         },
         {
-          "name": "Monitor",
-          "path": "monitor",
+          "name": "系统监控",
+          "path": "/",
           "hidden": false,
+          "component": "Layout",
+          "alwaysShow": true,
           "meta": {
             "title": "系统监控",
             "icon": "monitor",
@@ -286,9 +289,11 @@
           }
         },
         {
-          "name": "Tool",
-          "path": "tool",
+          "name": "系统工具",
+          "path": "/",
           "hidden": false,
+          "component": "Layout",
+          "alwaysShow": true,
           "meta": {
             "title": "系统工具",
             "icon": "tool",
@@ -299,20 +304,13 @@
       ]
     },
     {
+      "name": "Http://tienchin.vip",
       "path": "/",
       "hidden": false,
       "component": "Layout",
       "children": [
         {
-          "name": "Http://tienchin.vip",
-          "path": "http://tienchin.vip",
-          "hidden": false,
-          "meta": {
-            "title": "天勤官网",
-            "icon": "guide",
-            "noCache": false,
-            "link": "http://tienchin.vip"
-          }
+          "hidden": false
         }
       ]
     }
