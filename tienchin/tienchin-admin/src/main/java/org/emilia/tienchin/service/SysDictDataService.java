@@ -1,6 +1,12 @@
 package org.emilia.tienchin.service;
 
 
-public interface SysDictDataService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.emilia.tienchin.pojo.entity.SysDictData;
 
+import java.util.List;
+
+public interface SysDictDataService extends IService<SysDictData> {
+
+    List<SysDictData> dictType(String dictType);
 }

@@ -39,7 +39,7 @@ public class SysUserController extends BaseController {
      */
 //    @PreAuthorize("hasPermission('system:user:list')")
     @GetMapping("/list")
-    public TableDataInfo list(@RequestBody ListSysUserReq user, PageImpl<SysUser> page) {
+    public TableDataInfo list(ListSysUserReq user, PageImpl<SysUser> page) {
         List<SysUser> result = sysUserService.selectUsers(user, page);
         return getDataTable(result);
     }

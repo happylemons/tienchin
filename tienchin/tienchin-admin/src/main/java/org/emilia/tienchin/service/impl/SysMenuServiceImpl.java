@@ -60,7 +60,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         if (userId == 1L) {
             List<SysMenu> allMenus = sysMenuMapper.findAllMenus();
             List<TreeSelect> treeMenus = buildTreeMenus(allMenus, 0L);
-            System.out.println("treeMenus.size = " + treeMenus.size());
             return AjaxResult.success(treeMenus);
         } else {
             List<SysUserRole> ur = userRoleMapper.selectList(new QueryWrapper<SysUserRole>().eq("user_id", userId));
@@ -356,49 +355,45 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 .filter(m -> !Objects.equals(m.getMenuType(), "F") && m.getParentId() == 0L)
                 .sorted((m1, m2) -> m1.getOrderNum().compareTo(m2.getOrderNum()))
                 .collect(Collectors.toList());
-
         List<RouterVo> topRouters = new ArrayList<>();
         for (SysMenu topMenu : topMenus) {
             List<RouterVo> children = findChildren(topMenu, allMenus);
-            RouterVo finalTopRouter;
+            RouterVo routerVo;
             if ("system".equals(topMenu.getPath())) {
-                finalTopRouter = new RouterVo();
-                finalTopRouter.setName(upCaseFirst(topMenu.getPath()));
-                finalTopRouter.setPath("/" + topMenu.getPath());
-                finalTopRouter.setComponent("Layout");
-                finalTopRouter.setHidden(false);
-                finalTopRouter.setRedirect("noRedirect");
-                finalTopRouter.setAlwaysShow(true);
-                finalTopRouter.setMeta(toMeta(topMenu));
-                finalTopRouter.setChildren(children);
+                routerVo = new RouterVo(topMenu);
+                routerVo.setPath("/" + topMenu.getPath());
+                routerVo.setRedirect("noRedirect");
+                routerVo.setAlwaysShow(true);
+                routerVo.setChildren(children);
+            } else if (topMenu.getMenuId() == 4L) {
+                routerVo = new RouterVo(topMenu);
+                routerVo.setPath( topMenu.getPath());
             } else {
-                RouterVo wrapperRouter = new RouterVo();
-                wrapperRouter.setPath("/");
-                wrapperRouter.setComponent("Layout");
-                wrapperRouter.setHidden(false);
-                wrapperRouter.setChildren(new ArrayList<>());
-                RouterVo originalTopRouter = new RouterVo();
+                RouterVo vo = new RouterVo(topMenu);
+                vo.setPath("/");
+                vo.setName(null);
+                vo.setMeta(null);
+                vo.setChildren(new ArrayList<>());
+                RouterVo oldVo = new RouterVo();
                 if (children.isEmpty()) {
-                    originalTopRouter.setName(upCaseFirst(topMenu.getPath()));
-                    originalTopRouter.setPath(topMenu.getPath());
-                    originalTopRouter.setComponent("Layout");
-                    originalTopRouter.setHidden(false);
-                    originalTopRouter.setMeta(toMeta(topMenu));
-                    originalTopRouter.setChildren(Collections.emptyList());
+                    oldVo.setName(upCaseFirst(topMenu.getPath()));
+                    oldVo.setPath(topMenu.getPath());
+                    oldVo.setComponent(topMenu.getComponent());
+                    oldVo.setHidden(false);
+                    oldVo.setMeta(toMeta(topMenu));
+                    oldVo.setChildren(Collections.emptyList());
                 } else {
-                    originalTopRouter.setName(upCaseFirst(topMenu.getPath()));
-                    originalTopRouter.setPath(topMenu.getPath());
-                    originalTopRouter.setComponent("Layout");
-                    originalTopRouter.setHidden(false);
-                    originalTopRouter.setMeta(toMeta(topMenu));
-                    originalTopRouter.setChildren(children);
+                    oldVo.setName(upCaseFirst(topMenu.getPath()));
+                    oldVo.setPath(topMenu.getPath());
+                    oldVo.setComponent(topMenu.getComponent());
+                    oldVo.setHidden(false);
+                    oldVo.setMeta(toMeta(topMenu));
+                    oldVo.setChildren(children);
                 }
-
-                wrapperRouter.getChildren().add(originalTopRouter);
-                finalTopRouter = wrapperRouter;
+                vo.getChildren().add(oldVo);
+                routerVo = vo;
             }
-
-            topRouters.add(finalTopRouter);
+            topRouters.add(routerVo);
         }
 
         return topRouters;

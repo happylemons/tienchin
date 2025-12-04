@@ -40,13 +40,10 @@ public class RouterVo {
 
 
     public RouterVo(SysMenu sysMenu) {
-//        this.name = sysMenu.getMenuName();
+        this.name = upCaseFirst(sysMenu.getPath());
         this.path = sysMenu.getPath();
-        this.hidden = "1".equals(sysMenu.getVisible());
-//        this.redirect = sysMenu.get;
-        this.component = sysMenu.getComponent() == null ? "Layout" : sysMenu.getComponent();
-        this.query = sysMenu.getQuery();
-        this.alwaysShow = true;
+        this.hidden = false;
+        this.component = "Layout";
         this.meta = toMeta(sysMenu);
 //        this.children = sysMenu.getChildren();
     }
@@ -63,5 +60,12 @@ public class RouterVo {
             meta.setLink(null);
         }
         return meta;
+    }
+
+    public String upCaseFirst(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
     }
 }

@@ -3,174 +3,214 @@
   "code": 200,
   "data": [
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Clue",
-          "path": "clue",
-          "hidden": false,
-          "component": "tienchin/clue/index",
-          "meta": {
-            "title": "线索管理",
-            "icon": "checkbox",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 100,
+      "parentId": 0,
+      "ancestors": "0",
+      "deptName": "TienChin健身科技",
+      "orderNum": 0,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Business",
-          "path": "business",
-          "hidden": false,
-          "component": "tienchin/business/index",
-          "meta": {
-            "title": "商机管理",
-            "icon": "edit",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 101,
+      "parentId": 100,
+      "ancestors": "0,100",
+      "deptName": "深圳总公司",
+      "orderNum": 1,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Contract",
-          "path": "contract",
-          "hidden": false,
-          "component": "tienchin/contract/index",
-          "meta": {
-            "title": "合同管理",
-            "icon": "documentation",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 102,
+      "parentId": 100,
+      "ancestors": "0,100",
+      "deptName": "长沙分公司",
+      "orderNum": 2,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Activity",
-          "path": "activity",
-          "hidden": false,
-          "component": "tienchin/activity/index",
-          "meta": {
-            "title": "促销活动",
-            "icon": "peoples",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 103,
+      "parentId": 101,
+      "ancestors": "0,100,101",
+      "deptName": "研发部门",
+      "orderNum": 1,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Course",
-          "path": "course",
-          "hidden": false,
-          "component": "tienchin/course/index",
-          "meta": {
-            "title": "私教课程",
-            "icon": "list",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 104,
+      "parentId": 101,
+      "ancestors": "0,100,101",
+      "deptName": "市场部门",
+      "orderNum": 2,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Analysis",
-          "path": "analysis",
-          "hidden": false,
-          "component": "tienchin/analysis/index",
-          "meta": {
-            "title": "统计分析",
-            "icon": "chart",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 105,
+      "parentId": 101,
+      "ancestors": "0,100,101",
+      "deptName": "测试部门",
+      "orderNum": 3,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Channel",
-          "path": "channel",
-          "hidden": false,
-          "component": "tienchin/channel/index",
-          "meta": {
-            "title": "渠道管理",
-            "icon": "row",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 106,
+      "parentId": 101,
+      "ancestors": "0,100,101",
+      "deptName": "财务部门",
+      "orderNum": 4,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Transfer",
-          "path": "transfer",
-          "hidden": false,
-          "component": "tienchin/transfer/index",
-          "meta": {
-            "title": "转派管理",
-            "icon": "example",
-            "noCache": false,
-            "link": null
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 107,
+      "parentId": 101,
+      "ancestors": "0,100,101",
+      "deptName": "运维部门",
+      "orderNum": 5,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     },
     {
-      "path": "/",
-      "hidden": false,
-      "component": "Layout",
-      "children": [
-        {
-          "name": "Http://tienchin.vip",
-          "path": "http://tienchin.vip",
-          "hidden": false,
-          "meta": {
-            "title": "天勤官网",
-            "icon": "guide",
-            "noCache": false,
-            "link": "http://tienchin.vip"
-          }
-        }
-      ]
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 108,
+      "parentId": 102,
+      "ancestors": "0,100,102",
+      "deptName": "市场部门",
+      "orderNum": 1,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
+    },
+    {
+      "searchValue": null,
+      "createBy": "admin",
+      "createTime": "2023-01-16 16:20:26",
+      "updateBy": null,
+      "updateTime": null,
+      "remark": null,
+      "params": {},
+      "deptId": 109,
+      "parentId": 102,
+      "ancestors": "0,100,102",
+      "deptName": "财务部门",
+      "orderNum": 2,
+      "leader": "TienChin健身",
+      "phone": "15888888888",
+      "email": "ry@qq.com",
+      "status": "0",
+      "delFlag": "0",
+      "parentName": null,
+      "children": []
     }
   ]
 }
