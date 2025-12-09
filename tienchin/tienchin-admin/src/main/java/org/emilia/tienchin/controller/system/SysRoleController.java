@@ -107,7 +107,6 @@ public class SysRoleController extends BaseController {
     @PutMapping("/dataScope")
     public AjaxResult dataScope(@RequestBody @Validated DataScopeSysRoleReq role) {
         return sysRoleService.dataScope(role);
-
     }
 
     /**

@@ -2,8 +2,11 @@ package org.emilia.tienchin.controller.system;
 
 
 import org.emilia.tienchin.controller.common.BaseController;
+import org.emilia.tienchin.controller.dto.dept.AddSysDeptReq;
+import org.emilia.tienchin.controller.dto.dept.EditSysDeptReq;
 import org.emilia.tienchin.controller.dto.dept.ListSysDeptReq;
 import org.emilia.tienchin.pojo.AjaxResult;
+import org.emilia.tienchin.pojo.business.TreeSelect;
 import org.emilia.tienchin.pojo.entity.SysDept;
 import org.emilia.tienchin.service.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +47,8 @@ public class SysDeptController extends BaseController {
 //    @PreAuthorize("hasPermission('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
     public AjaxResult excludeChild(@PathVariable(value = "deptId", required = false) Long deptId) {
-        return null;
+        List<SysDept> result = deptService.excludeChild(deptId);
+        return AjaxResult.success(result);
 
     }
 
@@ -53,9 +57,9 @@ public class SysDeptController extends BaseController {
      */
 //    @PreAuthorize("hasPermission('system:dept:query')")
     @GetMapping(value = "/{deptId}")
-    public AjaxResult getInfo(@PathVariable Long deptId) {
-        return null;
-
+    public AjaxResult getInfo(@PathVariable(value = "deptId") Long deptId) {
+        SysDept dept = deptService.selectByDeptId(deptId);
+        return AjaxResult.success(dept);
     }
 
     /**
@@ -63,12 +67,8 @@ public class SysDeptController extends BaseController {
      */
     @GetMapping("/treeselect")
     public AjaxResult treeselect() {
-        Long userId = getUserId();
-        if (userId == null) {
-            return AjaxResult.error("获取用户id错误");
-        }
-        return deptService.treeselect(userId);
-
+        List<TreeSelect> result = deptService.treeselect();
+        return AjaxResult.success(result);
     }
 
     /**
@@ -76,8 +76,11 @@ public class SysDeptController extends BaseController {
      */
     @GetMapping(value = "/roleDeptTreeselect/{roleId}")
     public AjaxResult roleDeptTreeselect(@PathVariable("roleId") Long roleId) {
-        return null;
-
+        List<TreeSelect> depts = deptService.treeselect();
+        AjaxResult result = AjaxResult.success();
+        result.put("depts", depts);
+        result.put("checkedKeys", deptService.checkedKeys(roleId));
+        return result;
     }
 
     /**
@@ -86,9 +89,8 @@ public class SysDeptController extends BaseController {
 //    @PreAuthorize("hasPermission('system:dept:add')")
 //    @Log(title = "部门管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysDept dept) {
-        return null;
-
+    public AjaxResult add(@Validated @RequestBody AddSysDeptReq dept) {
+        return deptService.add(dept);
     }
 
     /**
@@ -97,8 +99,8 @@ public class SysDeptController extends BaseController {
 //    @PreAuthorize("hasPermission('system:dept:edit')")
 //    @Log(title = "部门管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysDept dept) {
-        return null;
+    public AjaxResult edit(@Validated @RequestBody EditSysDeptReq dept) {
+        return deptService.edit(dept);
 
     }
 
@@ -108,8 +110,7 @@ public class SysDeptController extends BaseController {
 //    @PreAuthorize("hasPermission('system:dept:remove')")
 //    @Log(title = "部门管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{deptId}")
-    public AjaxResult remove(@PathVariable Long deptId) {
-        return null;
-
+    public AjaxResult remove(@PathVariable("deptId") Long deptId) {
+        return deptService.remove(deptId);
     }
 }
